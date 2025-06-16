@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.bcrypt.v0102)
 
     implementation(libs.appcompat)
     implementation(libs.material)
