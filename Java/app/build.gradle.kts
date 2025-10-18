@@ -37,17 +37,22 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.ext.junit)
+    androidTestImplementation(libs.espresso.core)
+
     
     // Web3j para integración con Ethereum
-    implementation("org.web3j:core:4.9.8")
-    
+    implementation("org.web3j:core:5.0.0")
+
     // Para manejo de claves privadas
-    implementation("org.bitcoinj:bitcoinj-core:0.16.2")
+    // Se deja comentado porque da error al compilar
+    //implementation("org.bitcoinj:bitcoinj-core:0.16.2")
     
     // Para peticiones HTTP
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+
 }

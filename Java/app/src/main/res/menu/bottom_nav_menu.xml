@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  Importante que el id sea igual al del fragment -->
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/perfilFragment"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="Perfil" />
+
+    <item
+        android:id="@+id/movimientosFragment"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Movimientos" />
+</menu>
