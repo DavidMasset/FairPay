@@ -1,10 +1,10 @@
 package faseTesteo;
 
 //Importamos las clases necesarias para cifrado y codificación Base64.
-import javax.crypto.Cipher;                // Clase principal para cifrar/descifrar datos.
-import javax.crypto.spec.SecretKeySpec;    // Define la clave AES a usar.
-import android.util.Base64;                // Clase de Android para convertir bytes en texto Base64.
-import java.nio.charset.StandardCharsets;  // Define el formato de caracteres (UTF-8).
+import javax.crypto.Cipher;                
+import javax.crypto.spec.SecretKeySpec;    
+import android.util.Base64;               
+import java.nio.charset.StandardCharsets;  
 
 /**
 * Clase utilitaria para encriptar y desencriptar texto usando AES.
