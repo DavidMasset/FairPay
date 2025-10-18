@@ -1,41 +1,45 @@
 package es.ifp.fairpay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
+
+    protected Intent pasarPantalla;
+    protected TimerTask tt;
+    protected Timer t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.registro), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        // Contenedor de los Fragments, todos se cargan aquí
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        // Controlador de navegación, para gestionar la carga de Fragments, transiciones y argumentos
-        NavController navController = null;
-        if (navHostFragment != null) {
-            navController = navHostFragment.getNavController();
-        }
-        // Barra de navegación inferior,
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        if (navController != null) {
-            NavigationUI.setupWithNavController(bottomNav, navController);
-        }
+
+        // TimerTask para crear una tarea para el temporizador
+        tt = new TimerTask() {
+            @Override
+            public void run() {
+                // Intent para cambiar de Activity
+                pasarPantalla = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(pasarPantalla);
+            }
+        };
+        // Se instancia un temporizador
+        t = new Timer();
+        // Al metodo schedule se le pasa la tarea a ejecutar y el tiempo en milisegundos
+        t.schedule(tt, 3000);
     }
 }

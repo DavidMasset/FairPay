@@ -6,4 +6,5 @@
     </style>
 
     <style name="Theme.FairPay" parent="Base.Theme.FairPay" />
+
 </resources>

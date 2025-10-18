@@ -1,7 +1,17 @@
 <resources>
     <string name="app_name">FairPay</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Strings de los Fragments -->
     <string name="home_fragment">Inicio</string>
     <string name="perfil_fragment">Perfil</string>
     <string name="movimientos_fragment">Movimientos</string>
+    <!-- Strings de la Interfaz Gráfica -->
+    <string name="login_titulo">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="check_sesion">Mantener la sesión iniciada</string>
+    <string name="boton_login">Iniciar Sesión</string>
+    <string name="texto_registro">¿No tienes una cuenta? Regístrate</string>
+    <!-- Strings varios -->
+
+
 </resources>

@@ -43,9 +43,12 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+    // Para el uso componentes biométricos
+    implementation(libs.biometric)
+
     
     // Web3j para integración con Ethereum
-    implementation("org.web3j:core:5.0.0")
+    implementation(libs.web3j)
 
     // Para manejo de claves privadas
     // Se deja comentado porque da error al compilar
