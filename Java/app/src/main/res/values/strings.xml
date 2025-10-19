@@ -29,10 +29,17 @@
     <string name="privacidad_terminos">Acepto la políticas de privacidad y los términos y condiciones de uso</string>
     <string name="boton_registrar">Registrarse</string>
     <string name="toast_terminos">Debe aceptar las Políticas de Privacidad y Términos y Condiciones de Uso</string>
+    <!-- String Fragment Wallet -->
+    <string name="divisa">Mi Cartera · EUR</string>
+    <string name="solicitudes">Última solicitud pendiente</string>
+    <string name="ultimos_movimientos">Últimos movimientos</string>
 
     <!-- Strings varios -->
     <string name="registro_ok">Tu registro se ha completado\n¡Gracias!</string>
     <string name="boton_aceptar">Aceptar</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -37,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Intent para cambiar de Activity
-                pasarPantalla = new Intent(LoginActivity.this, InicioActivity.class);
+                pasarPantalla = new Intent(LoginActivity.this, LoadScreenActivity.class);
+                pasarPantalla.putExtra("PANTALLA", "InicioActivity");
                 startActivity(pasarPantalla);
             }
         });

@@ -51,6 +51,7 @@ public class RegistroActivity extends AppCompatActivity {
                         // CÓDIGO DE LÓGICA DE REGISTRO
                         // Intent para cambiar de Activity
                         pasarPantalla = new Intent(RegistroActivity.this, LoadScreenActivity.class);
+                        pasarPantalla.putExtra("PANTALLA", "OkActivity");
                         startActivity(pasarPantalla);
                     } else {
                         Toast.makeText(RegistroActivity.this,R.string.toast_terminos, Toast.LENGTH_SHORT).show();
