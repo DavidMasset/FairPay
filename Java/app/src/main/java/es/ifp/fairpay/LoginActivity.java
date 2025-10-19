@@ -15,10 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class LoginActivity extends AppCompatActivity {
 
     protected Intent pasarPantalla;
-    protected EditText email;
-    protected EditText password;
-    protected Button login;
-    protected Button registro;
+    protected EditText email, password;
+    protected Button login, registro;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        email = (EditText) findViewById(R.id.editText_email_login);
-        password = (EditText) findViewById(R.id.editText_password_login);
+        email = (EditText) findViewById(R.id.edit_email_login);
+        password = (EditText) findViewById(R.id.edit_password_login);
         login = (Button) findViewById(R.id.button_sesion_login);
         registro = (Button) findViewById(R.id.button_registro_login);
 
@@ -48,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Intent para cambiar de Activity
-                pasarPantalla = new Intent(LoginActivity.this, InicioActivity.class);
+                pasarPantalla = new Intent(LoginActivity.this, RegistroActivity.class);
                 startActivity(pasarPantalla);
             }
         });

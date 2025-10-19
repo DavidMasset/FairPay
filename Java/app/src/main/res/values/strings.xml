@@ -4,14 +4,26 @@
     <string name="home_fragment">Inicio</string>
     <string name="perfil_fragment">Perfil</string>
     <string name="movimientos_fragment">Movimientos</string>
-    <!-- Strings de la Interfaz Gráfica -->
+    <!-- Strings del Login -->
     <string name="login_titulo">Sign In</string>
     <string name="email">Email</string>
     <string name="password">Contraseña</string>
     <string name="check_sesion">Mantener la sesión iniciada</string>
     <string name="boton_login">Iniciar Sesión</string>
     <string name="texto_registro">¿No tienes una cuenta? Regístrate</string>
-    <!-- Strings varios -->
+    <!-- Strings del Registro -->
+    <string name="registro_titulo">Sign Up</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="telefono">Teléfono</string>
+    <string name="wallet">Wallet</string>
+    <string name="password_otravez">Vuelva a introducir la contraseña</string>
+    <string name="privacidad_terminos">Acepto la políticas de privacidad y los términos y condiciones de uso</string>
+    <string name="boton_registrar">Registrarse</string>
+    <string name="toast_terminos">Debe aceptar las Políticas de Privacidad y Términos y Condiciones de Uso</string>
 
+    <!-- Strings varios -->
+    <string name="registro_ok">Tu registro se ha completado\n¡Gracias!</string>
+    <string name="boton_aceptar">Aceptar</string>
 
 </resources>

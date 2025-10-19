@@ -7,12 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
-
+public class LoadScreenActivity extends AppCompatActivity {
     protected Intent pasarPantalla;
     protected TimerTask tt;
     protected Timer t;
@@ -21,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.splash_screen), (v, insets) -> {
+        setContentView(R.layout.activity_load_screen);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.load_screen), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -33,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Intent para cambiar de Activity
-                pasarPantalla = new Intent(MainActivity.this, LoginActivity.class);
+                pasarPantalla = new Intent(LoadScreenActivity.this, OkActivity.class);
                 startActivity(pasarPantalla);
             }
         };
         // Se instancia un temporizador
         t = new Timer();
         // Al metodo schedule se le pasa la tarea a ejecutar y el tiempo en milisegundos
-        t.schedule(tt, 1000);
+        t.schedule(tt, 3000);
     }
 }
