@@ -43,6 +43,7 @@
         android:layout_height="0dp"
         android:background="#C9C5E3"
         android:scrollbarStyle="insideInset"
+        android:scrollbarThumbVertical="@color/boton_principal"
         app:circularflow_defaultRadius="25dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
