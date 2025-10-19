@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">FairPay</string>
+    <!-- Strings de la barra de navegación -->
+    <string name="operaciones_navbar">Operaciones</string>
+    <string name="wallet_navbar">Wallet</string>
+    <string name="movimientos_navbar">Movimientos</string>
+    <string name="agenda_navbar">Agenda</string>
+    <string name="perfil_navbar">Perfil</string>
     <!-- Strings de los Fragments -->
-    <string name="home_fragment">Inicio</string>
+    <string name="operaciones_fragment">Operaciones</string>
     <string name="perfil_fragment">Perfil</string>
     <string name="movimientos_fragment">Movimientos</string>
+    <string name="agenda_fragment">Agenda</string>
+    <string name="wallet_fragment">Wallet</string>
     <!-- Strings del Login -->
     <string name="login_titulo">Sign In</string>
     <string name="email">Email</string>
@@ -25,5 +33,7 @@
     <!-- Strings varios -->
     <string name="registro_ok">Tu registro se ha completado\n¡Gracias!</string>
     <string name="boton_aceptar">Aceptar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

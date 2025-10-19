@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
         // Se instancia un temporizador
         t = new Timer();
         // Al metodo schedule se le pasa la tarea a ejecutar y el tiempo en milisegundos
-        t.schedule(tt, 1000);
+        t.schedule(tt, 3000);
     }
 }

@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/operacionesFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="es.ifp.fairpay.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-    </fragment>
+        android:id="@+id/operacionesFragment"
+        android:name="es.ifp.fairpay.OperacionesFragment"
+        android:label="fragment_operaciones"
+        tools:layout="@layout/fragment_operaciones" />
     <fragment
         android:id="@+id/perfilFragment"
         android:name="es.ifp.fairpay.PerfilFragment"
@@ -21,4 +20,14 @@
         android:name="es.ifp.fairpay.MovimientosFragment"
         android:label="fragment_movimientos"
         tools:layout="@layout/fragment_movimientos" />
+    <fragment
+        android:id="@+id/agendaFragment"
+        android:name="es.ifp.fairpay.AgendaFragment"
+        android:label="fragment_agenda"
+        tools:layout="@layout/fragment_agenda" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="es.ifp.fairpay.WalletFragment"
+        android:label="fragment_wallet"
+        tools:layout="@layout/fragment_wallet" />
 </navigation>
