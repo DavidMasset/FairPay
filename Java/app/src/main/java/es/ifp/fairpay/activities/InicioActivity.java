@@ -1,4 +1,4 @@
-package es.ifp.fairpay;
+package es.ifp.fairpay.activities;
 
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
@@ -10,6 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import es.ifp.fairpay.R;
 
 
 public class InicioActivity extends AppCompatActivity {

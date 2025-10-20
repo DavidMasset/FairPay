@@ -1,4 +1,4 @@
-package es.ifp.fairpay;
+package es.ifp.fairpay.fragments;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import es.ifp.fairpay.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OperacionesFragment#newInstance} factory method to
+ * Use the {@link WalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OperacionesFragment extends Fragment {
+public class WalletFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class OperacionesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public OperacionesFragment() {
+    public WalletFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class OperacionesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OperacionesFragment.
+     * @return A new instance of fragment WalletFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OperacionesFragment newInstance(String param1, String param2) {
-        OperacionesFragment fragment = new OperacionesFragment();
+    public static WalletFragment newInstance(String param1, String param2) {
+        WalletFragment fragment = new WalletFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,6 @@ public class OperacionesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_operaciones, container, false);
+        return inflater.inflate(R.layout.fragment_wallet, container, false);
     }
 }

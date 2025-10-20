@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/operacionesFragment"
-        android:name="es.ifp.fairpay.OperacionesFragment"
+        android:name="es.ifp.fairpay.fragments.OperacionesFragment"
         android:label="fragment_operaciones"
         tools:layout="@layout/fragment_operaciones" />
     <fragment
         android:id="@+id/perfilFragment"
-        android:name="es.ifp.fairpay.PerfilFragment"
+        android:name="es.ifp.fairpay.fragments.PerfilFragment"
         android:label="fragment_perfil"
         tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/movimientosFragment"
-        android:name="es.ifp.fairpay.MovimientosFragment"
+        android:name="es.ifp.fairpay.fragments.MovimientosFragment"
         android:label="fragment_movimientos"
         tools:layout="@layout/fragment_movimientos" />
     <fragment
         android:id="@+id/agendaFragment"
-        android:name="es.ifp.fairpay.AgendaFragment"
+        android:name="es.ifp.fairpay.fragments.AgendaFragment"
         android:label="fragment_agenda"
         tools:layout="@layout/fragment_agenda" />
     <fragment
         android:id="@+id/walletFragment"
-        android:name="es.ifp.fairpay.WalletFragment"
+        android:name="es.ifp.fairpay.fragments.WalletFragment"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
 </navigation>

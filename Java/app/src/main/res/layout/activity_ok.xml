@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris_oscuro"
-    tools:context=".OkActivity">
+    tools:context=".activities.OkActivity">
 
     <ImageView
         android:id="@+id/image_smile"
