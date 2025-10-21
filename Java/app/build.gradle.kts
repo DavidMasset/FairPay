@@ -42,20 +42,21 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation (libs.mysql.connector.java)
 
     // Para el uso componentes biométricos
     implementation(libs.biometric)
 
-    
+
     // Web3j para integración con Ethereum
     implementation(libs.web3j)
 
     // Para manejo de claves privadas
     // Se deja comentado porque da error al compilar
     //implementation("org.bitcoinj:bitcoinj-core:0.16.2")
-    
+
     // Para peticiones HTTP
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    
+
 
 }
