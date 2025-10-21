@@ -2,15 +2,16 @@ package es.ifp.fairpay.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import es.ifp.fairpay.R;
+import es.ifp.fairpay.database.DatabaseConnection;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import es.ifp.fairpay.R;
 
 public class MainActivity extends AppCompatActivity {
     protected Intent pasarPantalla;
@@ -27,19 +28,30 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        /*Esta clase se encargará de ofrecer los datos a las activities y fragmentos.
+        * Se encarga de la conexión con la base de datos y la ejecución de las consultas.
+        * */
+        // --- Lógica de la base de datos en un hilo secundario ---
+        new Thread(() -> {
+            DatabaseConnection databaseConnection = new DatabaseConnection();
+            databaseConnection.verTabla("usuarios", rs -> {
+                Log.d("FairPayDB", "--- Lista de usuarios ---");
+                while (rs.next()) {
+                    Log.d("FairPayDB", rs.getString("usuario") + "-" + rs.getString("password") + "-" + rs.getString("billetera"));
+                }
+            });
+        }).start(); //Se cierra el hilo para evitar que se bloquee la aplicación y se pueda seguir trabajando.
+        // --- Fin de la lógica de la base de datos ---
 
-        // TimerTask para crear una tarea para el temporizador
         tt = new TimerTask() {
             @Override
             public void run() {
-                // Intent para cambiar de Activity
                 pasarPantalla = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(pasarPantalla);
+                finish(); // Finaliza esta activity para que el usuario no pueda volver a ella
             }
         };
-        // Se instancia un temporizador
         t = new Timer();
-        // Al metodo schedule se le pasa la tarea a ejecutar y el tiempo en milisegundos
-        t.schedule(tt, 3000);
+        t.schedule(tt, 5000);
     }
 }
