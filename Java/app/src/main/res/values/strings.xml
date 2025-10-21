@@ -43,4 +43,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Strings Fragment movimientos -->
+    <string name="titulo_movimientos">Movimientos</string>
+    <string name="buscar_movimientos">Buscar...</string>
+
+    <!-- Strings Fragmento operaciones -->
+    <string name="titulo_operaciones">Operaciones</string>
+    <string name="boton_enviar_operaciones">Enviar dinero</string>
+    <string name="boton_Solicitar_operaciones">Solicitar dinero</string>
+
 </resources>
