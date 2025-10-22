@@ -34,14 +34,17 @@ public class MainActivity extends AppCompatActivity {
         // --- Lógica de la base de datos en un hilo secundario ---
         new Thread(() -> {
             DatabaseConnection databaseConnection = new DatabaseConnection();
-            databaseConnection.verTabla("usuarios", rs -> {
+            /*Ejemplo de método para obtener los usuarios de la base de datos*/
+            databaseConnection.obtenerUsuarios(rs -> {
                 Log.d("FairPayDB", "--- Lista de usuarios ---");
                 while (rs.next()) {
-                    Log.d("FairPayDB", rs.getString("usuario") + "-" + rs.getString("password") + "-" + rs.getString("billetera"));
+                    Log.d("FairPayDB", rs.getString("id_contacto") + "-" + rs.getString("nombre") + "-" + rs.getString("correo"));
                 }
             });
-        }).start(); //Se cierra el hilo para evitar que se bloquee la aplicación y se pueda seguir trabajando.
-        // --- Fin de la lógica de la base de datos ---
+        }).start();
+        /* Se cierra el hilo para evitar que se bloquee la aplicación y se pueda seguir trabajando.
+        * --- Fin de la lógica de la base de datos ---
+        * */
 
         tt = new TimerTask() {
             @Override
