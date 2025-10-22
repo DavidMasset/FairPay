@@ -10,5 +10,6 @@
     <color name="boton_secundario">#8A7DE1</color>
     <color name="gris_oscuro">#4D5059</color>
     <color name="gris_claro">#E0E0E0</color>
+    <color name="mostaza">#E8C547</color>
     <color name="transparente">#00FFFFFF</color>
 </resources>

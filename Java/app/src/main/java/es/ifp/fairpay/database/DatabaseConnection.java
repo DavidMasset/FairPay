@@ -1,7 +1,6 @@
 package es.ifp.fairpay.database;
 
 import android.util.Log;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,7 +26,7 @@ public class DatabaseConnection {
             ResultSet rs = null;
             try {
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
-                String sql = "SELECT id_usuario, nombre, correo FROM Usuario";
+                String sql = "SELECT id_usuario, nombre, apellidos, correo FROM Usuario";
 
                 pstmt = conn.prepareStatement(sql);
                 rs = pstmt.executeQuery();
