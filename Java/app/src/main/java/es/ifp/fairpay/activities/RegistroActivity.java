@@ -35,15 +35,15 @@ public class RegistroActivity extends AppCompatActivity {
             return insets;
         });
 
-        nombre = (EditText) findViewById(R.id.edit_nombre_registro);
-        apellidos = (EditText) findViewById(R.id.edit_apellidos_registro);
-        email = (EditText) findViewById(R.id.edit_email_registro);
-        telefono = (EditText) findViewById(R.id.edit_telefono_registro);
-        wallet = (EditText) findViewById(R.id.edit_wallet_registro);
-        password = (EditText) findViewById(R.id.edit_password_registro);
-        password2 = (EditText) findViewById(R.id.edit_password2_registro);
-        registro = (Button) findViewById(R.id.button_registrarse_registro);
-        condiciones = (CheckBox) findViewById(R.id.check_privacidad_registro);
+        nombre = findViewById(R.id.edit_nombre_registro);
+        apellidos = findViewById(R.id.edit_apellidos_registro);
+        email = findViewById(R.id.edit_email_registro);
+        telefono = findViewById(R.id.edit_telefono_registro);
+        wallet = findViewById(R.id.edit_wallet_registro);
+        password = findViewById(R.id.edit_password_registro);
+        password2 = findViewById(R.id.edit_password2_registro);
+        registro = findViewById(R.id.button_registrarse_registro);
+        condiciones = findViewById(R.id.check_privacidad_registro);
 
         databaseConnection = new DatabaseConnection();
 
@@ -76,9 +76,9 @@ public class RegistroActivity extends AppCompatActivity {
                 //TODO: Encriptar la contraseña, no puede ser texto plano.
                 String contrasenaHash = passwordRegistro;
                 //TODO: Encriptar la clave privada.
-                String clavePrivadaCifrada = " Texto pare evitar duplicidad " +walletRegistro;
+                String clavePrivadaCifrada = " Texto pare evitar duplicidad " + walletRegistro;
 
-                databaseConnection.registrarUsuario(nombreRegistro,apellidosRegistro,emailRegistro , contrasenaHash , telefonoRegistro , walletRegistro ,clavePrivadaCifrada );
+                databaseConnection.registrarUsuario(nombreRegistro, apellidosRegistro, emailRegistro, contrasenaHash, telefonoRegistro, walletRegistro, clavePrivadaCifrada);
 
                 Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente. ", Toast.LENGTH_SHORT).show();
                 pasarPantalla = new Intent(RegistroActivity.this, LoadScreenActivity.class);
