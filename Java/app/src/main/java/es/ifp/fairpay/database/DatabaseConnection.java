@@ -20,30 +20,33 @@ public class DatabaseConnection {
         void process(ResultSet rs) throws SQLException;
     }
 
-    public void registrarUsuario(String correo, String contrasena_hash, String telefono, String direccionBilletera, String clavePrivadaCifrada) {
-        if (correo == null || correo.isEmpty() || contrasena_hash == null || contrasena_hash.isEmpty() || direccionBilletera == null || direccionBilletera.isEmpty()) {
+    public void registrarUsuario(String nombre, String apellidos, String correo, String contrasena_hash, String telefono, String direccionBilletera, String clavePrivadaCifrada) {
+        if (nombre == null || nombre.isEmpty() || apellidos == null || apellidos.isEmpty() || correo == null || correo.isEmpty() || contrasena_hash == null || contrasena_hash.isEmpty() || direccionBilletera == null || direccionBilletera.isEmpty()) {
             Log.w("FairPayDB", "Intento de registro con datos esenciales incompletos.");
             return;
         }
+
         new Thread(() -> {
 
             Connection conn = null;
             PreparedStatement pstmtUsuario = null;
             PreparedStatement pstmtBilletera = null;
-            PreparedStatement pstmtUpdateNombre = null;
             ResultSet generatedKeys = null;
 
             try {
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 conn.setAutoCommit(false); //Se desactiva el auto commit para poder hacer un commit manual una vez que se han insertado todos los datos.
 
-                String sqlUsuario = "INSERT INTO Usuario (nombre, correo, contraseña_hash, telefono) VALUES (?, ?, ?, ?)";
+                String sqlUsuario = "INSERT INTO Usuario (nombre, apellidos,correo, contraseña_hash, telefono) VALUES (?, ?, ?, ?, ?)";
                 pstmtUsuario = conn.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS); //Devuelve los vlaores de ID del Autoincrement
-                pstmtUsuario.setString(1, correo); //Nombre temporal hasta que se modifique manualmente.
-                pstmtUsuario.setString(2, correo);
-                pstmtUsuario.setString(3, contrasena_hash);
-                pstmtUsuario.setString(4, telefono);
-                pstmtUsuario.executeUpdate();
+                pstmtUsuario.setString(1, nombre);
+                pstmtUsuario.setString(2, apellidos);
+                pstmtUsuario.setString(3, correo);
+                pstmtUsuario.setString(4, contrasena_hash);
+                pstmtUsuario.setString(5, telefono);
+                if (pstmtUsuario.executeUpdate() == 0) {
+                    throw new SQLException("La creación del usuario falló, no se pudo insertar el usuario.");
+                }
                 /*Para obtener las ids generadas*/
                 generatedKeys = pstmtUsuario.getGeneratedKeys();
                 long idUsuario;
@@ -53,13 +56,6 @@ public class DatabaseConnection {
                     throw new SQLException("La creación del usuario falló, no se pudo obtener el ID.");
                 }
 
-                /*Actualizar nombre*/
-                String nombreDefault = "Usuario" + idUsuario;
-                String sqlUpdateNombre = "UPDATE Usuario SET nombre = ? WHERE id_usuario = ?";
-                pstmtUpdateNombre = conn.prepareStatement(sqlUpdateNombre);
-                pstmtUpdateNombre.setString(1, nombreDefault);
-                pstmtUpdateNombre.setLong(2, idUsuario);
-                pstmtUpdateNombre.executeUpdate();
 
                 String sqlBilletera = "INSERT INTO Billetera (dirección, clave_privada_cifrada, id_usuario) VALUES (?, ?, ?)";
                 pstmtBilletera = conn.prepareStatement(sqlBilletera);
@@ -69,7 +65,7 @@ public class DatabaseConnection {
                 pstmtBilletera.executeUpdate();
 
                 conn.commit();
-                Log.d("FairPayDB", "TRANSACCIÓN COMPLETADA: Usuario " + nombreDefault + " y su billetera han sido registrados.");
+                Log.d("FairPayDB", "TRANSACCIÓN COMPLETADA: Usuario " + nombre + " y su billetera han sido registrados.");
 
 
             } catch (SQLException e) {
@@ -87,11 +83,6 @@ public class DatabaseConnection {
                 }
                 try {
                     if (pstmtBilletera != null) pstmtBilletera.close();
-                } catch (SQLException e) {
-                    Log.e("FairPayDB", "Error al cerrar pstmt.", e);
-                }
-                try {
-                    if (pstmtUpdateNombre != null) pstmtUpdateNombre.close();
                 } catch (SQLException e) {
                     Log.e("FairPayDB", "Error al cerrar pstmt.", e);
                 }
@@ -121,7 +112,7 @@ public class DatabaseConnection {
             ResultSet rs = null;
             try {
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
-                String sql = "SELECT id_usuario, nombre, correo FROM Usuario";
+                String sql = "SELECT id_usuario, nombre, apellidos, correo FROM Usuario";
 
                 pstmt = conn.prepareStatement(sql);
                 rs = pstmt.executeQuery();
