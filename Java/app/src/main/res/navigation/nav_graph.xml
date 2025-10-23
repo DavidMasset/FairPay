@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_agendaFragment_to_anadirContactoFragment"
             app:destination="@id/anadirContactoFragment" />
+        <action
+            android:id="@+id/action_agendaFragment_to_contactoFragment"
+            app:destination="@id/contactoFragment" />
     </fragment>
     <fragment
         android:id="@+id/walletFragment"
@@ -39,4 +42,22 @@
         android:name="es.ifp.fairpay.fragments.AnadirContactoFragment"
         android:label="fragment_anadir_contacto"
         tools:layout="@layout/fragment_anadir_contacto" />
+    <fragment
+        android:id="@+id/contactoFragment"
+        android:name="es.ifp.fairpay.fragments.ContactoFragment"
+        android:label="fragment_contacto"
+        tools:layout="@layout/fragment_contacto" >
+        <action
+            android:id="@+id/action_contactoFragment_to_eliminarContactoFragment"
+            app:destination="@id/eliminarContactoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eliminarContactoFragment"
+        android:name="es.ifp.fairpay.fragments.EliminarContactoFragment"
+        android:label="fragment_eliminar_contacto"
+        tools:layout="@layout/fragment_eliminar_contacto" >
+        <action
+            android:id="@+id/action_eliminarContactoFragment_to_agendaFragment"
+            app:destination="@id/agendaFragment" />
+    </fragment>
 </navigation>

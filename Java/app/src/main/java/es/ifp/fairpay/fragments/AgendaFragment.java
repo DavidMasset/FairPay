@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -95,6 +96,13 @@ public class AgendaFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 navController.navigate(R.id.anadirContactoFragment);
+            }
+        });
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                navController.navigate(R.id.contactoFragment);
             }
         });
 

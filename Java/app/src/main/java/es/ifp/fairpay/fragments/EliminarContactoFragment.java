@@ -3,25 +3,21 @@ package es.ifp.fairpay.fragments;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import es.ifp.fairpay.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ContactoFragment#newInstance} factory method to
+ * Use the {@link EliminarContactoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ContactoFragment extends Fragment {
+public class EliminarContactoFragment extends Fragment {
 
-    Button eliminarContacto;
-
+    Button eliminarContacto, cancelar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,7 +28,7 @@ public class ContactoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ContactoFragment() {
+    public EliminarContactoFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +38,11 @@ public class ContactoFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ContactoFragment.
+     * @return A new instance of fragment EliminarContactoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ContactoFragment newInstance(String param1, String param2) {
-        ContactoFragment fragment = new ContactoFragment();
+    public static EliminarContactoFragment newInstance(String param1, String param2) {
+        EliminarContactoFragment fragment = new EliminarContactoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,20 +63,28 @@ public class ContactoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contacto, container, false);
+        return inflater.inflate(R.layout.fragment_eliminar_contacto, container, false);
     }
-
-    // Cuando la vista ya está creada
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         eliminarContacto = view.findViewById(R.id.boton_eliminar_contacto);
-        NavController navController = Navigation.findNavController(view);
+        cancelar = view.findViewById(R.id.boton_cancelar_eliminarcontacto);
 
+        // Lógica del botón eliminar contacto
         eliminarContacto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_contactoFragment_to_eliminarContactoFragment);
+            public void onClick(View view) {
+
+            }
+        });
+
+        // Lógica del botón cancelar
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomNavigationView bottomNav = getActivity().findViewById(R.id.bottom_nav);
+                bottomNav.setSelectedItemId(R.id.agendaFragment);
             }
         });
     }
