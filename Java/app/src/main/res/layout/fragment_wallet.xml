@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frame_solicitud_wallet" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clayout_movimientos_wallet"
+        android:id="@+id/clayout_contactos_agenda"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="85dp"
@@ -115,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_movimientos_wallet">
 
         <ListView
-            android:id="@+id/listView_movimientos_wallet"
+            android:id="@+id/listView_contactos_agenda"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
