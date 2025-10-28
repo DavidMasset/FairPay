@@ -32,7 +32,8 @@ android {
 }
 
 dependencies {
-    // Dependencias de Android
+    implementation(libs.bcrypt.v0102)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

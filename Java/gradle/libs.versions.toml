@@ -14,8 +14,11 @@ navigationUi = "2.9.5"
 biometric = "1.1.0"
 androidxNavigationSafeargsGradlePlugin = "2.9.5"
 
+bcryptVersion = "0.10.2"
+
 [libraries]
 web3j = { module = "org.web3j:core", version.ref = "web3j" }
+bcrypt-v0102 = { module = "at.favre.lib:bcrypt", version.ref = "bcryptVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
