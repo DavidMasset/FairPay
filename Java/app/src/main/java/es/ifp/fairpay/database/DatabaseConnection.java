@@ -18,8 +18,13 @@ public class DatabaseConnection {
     public interface ResultSetProcessor {
         void process(ResultSet rs) throws SQLException;
     }
-
+    /* Interfaz para procesar los resultados de la consulta y que se envíen a la pantalla */
+    public interface LoginListener {
+        void onLoginSuccess();
+        void onLoginFailure(String error);
+    }
     public void registrarUsuario(String nombre, String apellidos, String correo, String contrasena_hash, String telefono, String direccionBilletera, String clavePrivadaCifrada) {
+
         if (nombre == null || nombre.isEmpty() || apellidos == null || apellidos.isEmpty() || correo == null || correo.isEmpty() || contrasena_hash == null || contrasena_hash.isEmpty() || direccionBilletera == null || direccionBilletera.isEmpty()) {
             Log.w("FairPayDB", "Intento de registro con datos esenciales incompletos.");
             return;
@@ -102,6 +107,50 @@ public class DatabaseConnection {
             }
         }).start();
     }
+    public void loginUsuario(LoginListener listener, String correo, String password){
+        new Thread(() ->{
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            try {
+                conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                String sql = "SELECT contraseña_hash FROM Usuario WHERE Correo = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,correo);
+                rs = pstmt.executeQuery();
+                if (rs.next()){
+                    String contraseña_hash = rs.getString("contraseña_hash");
+                    if(contraseña_hash.equals(password)){
+                        listener.onLoginSuccess();
+                    }else{
+                        listener.onLoginFailure("Contraseña incorrecta");
+                    }
+                }else{
+                    listener.onLoginFailure("Usuario no encontrado");
+                }
+            } catch (SQLException e) {
+                listener.onLoginFailure("Error al iniciar sesión");
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar rs.", e);
+                }
+                try {
+                    if (pstmt != null) pstmt.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar pstmt.", e);
+                }
+                try {
+                    if (conn != null) conn.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar rs.", e);
+                }
+            }
+
+        }).start();
+
+    }
 
     // Metodo para obtener el contenido de una tabla y procesarlo
     public void obtenerUsuarios(ResultSetProcessor processor) {
@@ -137,4 +186,6 @@ public class DatabaseConnection {
             }
         }).start();
     }
+
+
 }
