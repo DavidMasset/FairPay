@@ -2,6 +2,7 @@ package es.ifp.fairpay.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,8 +15,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import es.ifp.fairpay.R;
 import es.ifp.fairpay.database.DatabaseConnection;
+import es.ifp.fairpay.security.EncryptManager;
 
 public class RegistroActivity extends AppCompatActivity {
     protected Intent pasarPantalla;
@@ -23,6 +30,7 @@ public class RegistroActivity extends AppCompatActivity {
     protected Button registro;
     protected CheckBox condiciones;
     protected DatabaseConnection databaseConnection;
+    private EncryptManager encryptManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +55,23 @@ public class RegistroActivity extends AppCompatActivity {
 
         databaseConnection = new DatabaseConnection();
 
+        // Inicializamos el EncryptManager
+        try {
+            encryptManager = new EncryptManager(getApplicationContext());
+        } catch (GeneralSecurityException | IOException e) {
+            Log.e("FairPayCrypto", "Error crítico al inicializar EncryptManager", e);
+            Toast.makeText(this, "Error de seguridad irrecuperable. La aplicación no puede continuar.", Toast.LENGTH_LONG).show();
+            // En una app real, aquí se debería deshabilitar la funcionalidad o cerrar la app.
+            registro.setEnabled(false);
+        }
+
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (encryptManager == null) {
+                    Toast.makeText(RegistroActivity.this, "Error de seguridad. No se puede registrar.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (!condiciones.isChecked()) {
                     Toast.makeText(RegistroActivity.this, R.string.toast_terminos, Toast.LENGTH_SHORT).show();
                     return;
@@ -64,29 +86,38 @@ public class RegistroActivity extends AppCompatActivity {
                 String password2Registro = password2.getText().toString().trim();
 
                 if (nombreRegistro.isEmpty() || apellidosRegistro.isEmpty() || emailRegistro.isEmpty() || telefonoRegistro.isEmpty() || walletRegistro.isEmpty() || passwordRegistro.isEmpty() || password2Registro.isEmpty()) {
-                    Toast.makeText(RegistroActivity.this, "Rellene todos los campos. ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroActivity.this, "Rellene todos los campos.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!passwordRegistro.equals(password2Registro)) {
-                    Toast.makeText(RegistroActivity.this, "Las contraseñas no coinciden. ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistroActivity.this, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                //TODO: Encriptar la contraseña, no puede ser texto plano.
-                String contrasenaHash = passwordRegistro;
-                //TODO: Encriptar la clave privada.
-                String clavePrivadaCifrada = " Texto pare evitar duplicidad " + walletRegistro;
+                try {
+                    /* gensalt() genera un "salt" aleatorio para cada contraseña.*/
+                    String contrasenaHash = BCrypt.hashpw(passwordRegistro, BCrypt.gensalt());
 
-                databaseConnection.registrarUsuario(nombreRegistro, apellidosRegistro, emailRegistro, contrasenaHash, telefonoRegistro, walletRegistro, clavePrivadaCifrada);
+                    /*Cifrar la clave privada con EncryptManager
+                    * Se crea un alias único para el archivo cifrado. Usamos el email para identificarlo.*/
+                    String privateKeyReal = "pk_placeholder_" + System.currentTimeMillis();
+                    String privateKeyAlias = "pk_" + emailRegistro.replaceAll("[^a-zA-Z0-9]", "_");
 
-                Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente. ", Toast.LENGTH_SHORT).show();
-                pasarPantalla = new Intent(RegistroActivity.this, LoadScreenActivity.class);
-                pasarPantalla.putExtra("PANTALLA", "OkActivity");
-                startActivity(pasarPantalla);
+                    encryptManager.encryptAndSave(privateKeyAlias, privateKeyReal);
+
+                    databaseConnection.registrarUsuario(nombreRegistro, apellidosRegistro, emailRegistro, contrasenaHash, telefonoRegistro, walletRegistro, privateKeyAlias);
+
+                    Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
+                    pasarPantalla = new Intent(RegistroActivity.this, LoadScreenActivity.class);
+                    pasarPantalla.putExtra("PANTALLA", "OkActivity");
+                    startActivity(pasarPantalla);
+
+                } catch (GeneralSecurityException | IOException e) {
+                    Log.e("FairPayCrypto", "Error durante el proceso de cifrado en el registro.", e);
+                    Toast.makeText(RegistroActivity.this, "Error de seguridad al guardar los datos.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
-
 }
-

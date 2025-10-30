@@ -15,6 +15,7 @@ biometric = "1.1.0"
 androidxNavigationSafeargsGradlePlugin = "2.9.5"
 
 bcryptVersion = "0.10.2"
+jbcrypt = "0.4"
 
 [libraries]
 web3j = { module = "org.web3j:core", version.ref = "web3j" }
@@ -31,6 +32,7 @@ biometric = { group = "androidx.biometric", name = "biometric", version.ref = "b
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 navigation_safeargs = { group = "androidx.navigation.safeargs", name = "androidx.navigation.safeargs.gradle.plugin", version.ref = "androidxNavigationSafeargsGradlePlugin" }
+jbcrypt = { group = "org.mindrot", name = "jbcrypt", version.ref = "jbcrypt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
