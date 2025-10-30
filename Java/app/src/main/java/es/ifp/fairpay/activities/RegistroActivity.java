@@ -106,12 +106,25 @@ public class RegistroActivity extends AppCompatActivity {
 
                     encryptManager.encryptAndSave(privateKeyAlias, privateKeyReal);
 
-                    databaseConnection.registrarUsuario(nombreRegistro, apellidosRegistro, emailRegistro, contrasenaHash, telefonoRegistro, walletRegistro, privateKeyAlias);
+                    databaseConnection.registrarUsuario(new DatabaseConnection.RegistroListener() {
+                        @Override
+                        public void onRegistroSuccess() {
+                            runOnUiThread(()->{
+                                Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
+                                pasarPantalla = new Intent(RegistroActivity.this, LoadScreenActivity.class);
+                                pasarPantalla.putExtra("PANTALLA", "OkActivity");
+                                startActivity(pasarPantalla);
+                            });
+                        }
 
-                    Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
-                    pasarPantalla = new Intent(RegistroActivity.this, LoadScreenActivity.class);
-                    pasarPantalla.putExtra("PANTALLA", "OkActivity");
-                    startActivity(pasarPantalla);
+                        @Override
+                        public void onRegistroFailure(String error) {
+                            runOnUiThread(()->{
+                                Toast.makeText(RegistroActivity.this, error, Toast.LENGTH_SHORT).show();
+                            });
+
+                        }
+                    }, nombreRegistro, apellidosRegistro, emailRegistro, contrasenaHash, telefonoRegistro, walletRegistro, privateKeyAlias);
 
                 } catch (GeneralSecurityException | IOException e) {
                     Log.e("FairPayCrypto", "Error durante el proceso de cifrado en el registro.", e);
