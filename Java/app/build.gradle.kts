@@ -32,13 +32,15 @@ android {
 }
 
 dependencies {
-    // Dependencias de Android
+    implementation(libs.bcrypt.v0102)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.jbcrypt)
     //implementation(libs.navigation.safeargs)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -48,6 +50,8 @@ dependencies {
     // Para el uso componentes biométricos
     implementation(libs.biometric)
 
+    // Para el cifrado seguro de datos en reposo (claves privadas, etc.)
+    implementation("androidx.security:security-crypto:1.1.0")
 
     // Web3j para integración con Ethereum
     implementation(libs.web3j)
