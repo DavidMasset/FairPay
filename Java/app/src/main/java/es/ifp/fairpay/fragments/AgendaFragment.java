@@ -77,7 +77,7 @@ public class AgendaFragment extends Fragment {
 
         //Instancia de los elementos
         lista = view.findViewById(R.id.listView_contactos_agenda);
-        anadirContactos = view.findViewById(R.id.boton_anadirContacto_agenda);
+        anadirContactos = view.findViewById(R.id.boton_anadirContacto_solicitar_dinero);
         NavController navController = Navigation.findNavController(view);
 
 

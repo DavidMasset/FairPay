@@ -2,24 +2,20 @@ package es.ifp.fairpay.fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import es.ifp.fairpay.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OperacionesFragment#newInstance} factory method to
+ * Use the {@link SolicitarDineroFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OperacionesFragment extends Fragment {
+public class SolicitarDineroFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,9 +26,7 @@ public class OperacionesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button boton_enviarDinero, boton_solicitarDinero;
-
-    public OperacionesFragment() {
+    public SolicitarDineroFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +36,11 @@ public class OperacionesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment OperacionesFragment.
+     * @return A new instance of fragment SolicitarDineroFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static OperacionesFragment newInstance(String param1, String param2) {
-        OperacionesFragment fragment = new OperacionesFragment();
+    public static SolicitarDineroFragment newInstance(String param1, String param2) {
+        SolicitarDineroFragment fragment = new SolicitarDineroFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -67,30 +61,6 @@ public class OperacionesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_operaciones, container, false);
-    }
-    // Cuando la vista ya está creada
-    @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        boton_enviarDinero = view.findViewById(R.id.button_enviar_operaciones);
-        boton_solicitarDinero = view.findViewById(R.id.button_solicitar_operaciones);
-        NavController navController = Navigation.findNavController(view);
-
-        boton_enviarDinero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_operacionesFragment_to_enviarDineroFragment);
-            }
-        });
-
-        boton_solicitarDinero.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navController.navigate(R.id.action_operacionesFragment_to_enviarDineroFragment);
-            }
-        });
-
-
+        return inflater.inflate(R.layout.fragment_enviar_dinero, container, false);
     }
 }

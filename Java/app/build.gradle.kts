@@ -59,5 +59,10 @@ dependencies {
     // Para peticiones HTTP
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
+    // Necesario para Data Store
+    implementation(libs.datastore.preferences)
+    implementation(libs.datastore.preferences.rxjava3)
+    implementation(libs.rxjava)
+
 
 }

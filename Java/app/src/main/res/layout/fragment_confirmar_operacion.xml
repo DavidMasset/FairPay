@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/confirmarOperacionFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_activity"
+    android:padding="20dp"
+    tools:context=".fragments.ConfirmarOperacionFragment">
+
+    <TextView
+        android:id="@+id/text_titulo_Operaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/titulo_confirmar_operacion"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="320dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/rounded_corners"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_Operaciones">
+
+        <TextView
+            android:id="@+id/text_confirmar_operacion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/texto_confirmar_operacion"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/button_realizar_operacion"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:backgroundTint="@color/boton_principal"
+        android:text="@string/boton_confirmar_operacion"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <Button
+        android:id="@+id/button_cancelar_operacion"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="@color/boton_principal"
+        android:text="@string/boton_cancelar"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_realizar_operacion" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

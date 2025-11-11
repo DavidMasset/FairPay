@@ -7,32 +7,16 @@
     android:layout_height="match_parent"
     android:background="@color/fondo_activity"
     android:padding="20dp"
-    tools:context=".fragments.WalletFragment">
+    tools:context=".fragments.OperacionesFragment">
 
     <Button
         android:id="@+id/button_enviar_operaciones"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="32dp"
-        android:background="@color/boton_principal"
-        android:text="@string/boton_Solicitar_operaciones"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        app:cornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_solicitar_operaciones" />
-
-    <Button
-        android:id="@+id/button_solicitar_operaciones"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="32dp"
-        android:background="@color/boton_principal"
+        android:backgroundTint="@color/boton_principal"
         android:text="@string/boton_enviar_operaciones"
         android:textAllCaps="false"
         android:textSize="16sp"
@@ -41,12 +25,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_titulo_Operaciones" />
 
+    <Button
+        android:id="@+id/button_solicitar_operaciones"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/boton_principal"
+        android:text="@string/boton_solicitar_operaciones"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_enviar_operaciones" />
+
     <TextView
         android:id="@+id/text_titulo_Operaciones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
-        android:text="Operaciones"
+        android:text="@string/operaciones_fragment"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -61,18 +61,19 @@
         android:layout_height="357dp"
         android:layout_marginBottom="85dp"
         android:background="@drawable/rounded_corners"
+        android:padding="8dp"
         android:radius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_solicitar_operaciones"
+        app:layout_constraintTop_toBottomOf="@+id/button_enviar_operaciones"
         app:layout_constraintVertical_bias="1.0">
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@color/boton_principal" />
 
     </FrameLayout>
 
@@ -89,7 +90,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/frame_solicitud_wallet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_solicitar_operaciones"
+        app:layout_constraintTop_toBottomOf="@+id/button_enviar_operaciones"
         app:layout_constraintVertical_bias="0.90999997" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

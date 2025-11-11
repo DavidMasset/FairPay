@@ -9,7 +9,14 @@
         android:id="@+id/operacionesFragment"
         android:name="es.ifp.fairpay.fragments.OperacionesFragment"
         android:label="fragment_operaciones"
-        tools:layout="@layout/fragment_operaciones" />
+        tools:layout="@layout/fragment_operaciones" >
+        <action
+            android:id="@+id/action_operacionesFragment_to_enviarDineroFragment"
+            app:destination="@id/enviarDineroFragment" />
+        <action
+            android:id="@+id/action_operacionesFragment_to_solicitarDineroFragment2"
+            app:destination="@id/solicitarDineroFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/perfilFragment"
         android:name="es.ifp.fairpay.fragments.PerfilFragment"
@@ -60,4 +67,20 @@
             android:id="@+id/action_eliminarContactoFragment_to_agendaFragment"
             app:destination="@id/agendaFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/enviarDineroFragment"
+        android:name="es.ifp.fairpay.fragments.EnviarDineroFragment"
+        android:label="fragment_enviar_dinero"
+        tools:layout="@layout/fragment_enviar_dinero" />
+    <fragment
+        android:id="@+id/solicitarDineroFragment2"
+        android:name="es.ifp.fairpay.fragments.SolicitarDineroFragment"
+        android:label="fragment_solicitar_dinero"
+        tools:layout="@layout/fragment_solicitar_dinero" />
+    <fragment
+        android:id="@+id/confirmarOperacionFragment2"
+        android:name="es.ifp.fairpay.fragments.ConfirmarOperacionFragment"
+        android:label="fragment_confirmar_operacion"
+        tools:layout="@layout/fragment_confirmar_operacion" />
+
 </navigation>

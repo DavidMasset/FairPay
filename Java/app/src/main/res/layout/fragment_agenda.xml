@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/boton_anadirContacto_agenda"
+        android:id="@+id/boton_anadirContacto_solicitar_dinero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -47,7 +47,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/boton_anadirContacto_agenda">
+        app:layout_constraintTop_toBottomOf="@+id/boton_anadirContacto_solicitar_dinero">
 
         <ListView
             android:id="@+id/listView_contactos_agenda"
@@ -60,7 +60,6 @@
             android:dividerHeight="0dp"
             android:footerDividersEnabled="false"
             android:headerDividersEnabled="false"
-            android:isScrollContainer="false"
             android:scrollbarThumbVertical="@color/boton_principal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

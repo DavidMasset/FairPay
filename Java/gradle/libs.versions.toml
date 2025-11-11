@@ -12,7 +12,9 @@ web3j = "5.0.0"
 navigationFragment = "2.9.5"
 navigationUi = "2.9.5"
 biometric = "1.1.0"
-androidxNavigationSafeargsGradlePlugin = "2.9.5"
+datastorePreferences = "1.1.7"
+datastorePreferencesRxjava3 = "1.1.7"
+rxjava = "3.1.12"
 
 [libraries]
 web3j = { module = "org.web3j:core", version.ref = "web3j" }
@@ -27,7 +29,9 @@ mysql_connector_java = { module = "mysql:mysql-connector-java", version.ref = "m
 biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
-navigation_safeargs = { group = "androidx.navigation.safeargs", name = "androidx.navigation.safeargs.gradle.plugin", version.ref = "androidxNavigationSafeargsGradlePlugin" }
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
+datastore-preferences-rxjava3 = { group = "androidx.datastore", name = "datastore-preferences-rxjava3", version.ref = "datastorePreferencesRxjava3" }
+rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

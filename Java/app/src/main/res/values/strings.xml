@@ -45,24 +45,45 @@
     <string name="boton_enviar">Enviar Dinero</string>
     <string name="titulo_eliminar_contacto">Eliminar Contacto</string>
     <string name="texto_info_eliminar_contacto">¿Realmente desea eliminar el contacto de forma definitiva?\n\nEsta acción no se puede deshacer y toda la información será borrada</string>
+    <!-- Strings Fragment Movimientos -->
+    <string name="titulo_movimientos">Movimientos</string>
+    <string name="buscar_movimientos">Buscar...</string>
+    <!-- Strings Fragment Operaciones -->
+    <string name="titulo_operaciones">Operaciones</string>
+    <string name="boton_enviar_operaciones">Enviar dinero</string>
+    <string name="boton_solicitar_operaciones">Solicitar dinero</string>
+    <string name="texto_contactos_recientes">Contactos recientes</string>
+    <!-- Strings Fragment Enviar Dinero -->
+    <string name="titulo_envio_dinero">Enviar Dinero · EUR</string>
+    <string name="boton_enviar_dinero">Enviar Dinero"</string>
+    <string name="texto_aviso_envio">Se enviará en cuestión de segundos</string>
+    <!-- Strings Fragment Solicitar Dinero -->
+    <string name="titulo_solicitud_dinero">Solicitar Dinero · EUR</string>
+    <string name="boton_solicitar_dinero">Solicitar Dinero"</string>
+    <string name="texto_aviso_solicitud">Se solicitará en cuestión de segundos</string>
+    <!-- Strings confirmación Operaciones -->
+    <string name="titulo_confirmar_operacion">Confirmar Operación</string>
+    <string name="texto_confirmar_operacion">¿Desea hacer el envío de XX€?\n\n\nEsta acción no se puede deshacer y la transacción será ejecutada.</string>
+    <!-- Strings confirmación Operaciones / Enviar Dinero -->
+    <string name="titulo_operacion_enviar">Enviar Dinero · EUR</string>
+    <!-- Strings confirmación Operaciones / Solicitar Dinero -->
+    <string name="titulo_operacion_solicitar">Solicitar Dinero · EUR</string>
+    <!-- Strings confirmación Operaciones / Confirmar Operacion -->
+    <string name="boton_confirmar_operacion">Confirmar Operación</string>
 
     <!-- Strings varios -->
     <string name="registro_ok">Tu registro se ha completado\n¡Gracias!</string>
     <string name="boton_aceptar">Aceptar</string>
     <string name="boton_cancelar">Cancelar</string>
     <string name="campos_obligatorios">Todos los campos son obligatorios</string>
-
+    <string name="texto_importe">Importe</string>
+    <string name="texto_introducir_importe">Introduzca el importe</string>
+    <string name="boton_anadir_agenda">Añadir de agenda</string>
+    <string name="texto_detalle_transaccion">Detalles transacción:</string>
+    <string name="texto_hint_wallet">Introduzca wallet</string>
+    <string name="texto_hint_concepto">Introduzca concepto</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <!-- Strings Fragment movimientos -->
-    <string name="titulo_movimientos">Movimientos</string>
-    <string name="buscar_movimientos">Buscar...</string>
-
-    <!-- Strings Fragmento operaciones -->
-    <string name="titulo_operaciones">Operaciones</string>
-    <string name="boton_enviar_operaciones">Enviar dinero</string>
-    <string name="boton_Solicitar_operaciones">Solicitar dinero</string>
 
 </resources>
