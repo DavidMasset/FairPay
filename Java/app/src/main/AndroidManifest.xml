@@ -7,7 +7,6 @@
     <uses-feature
         android:name="android.hardware.biometrics"
         android:required="true" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Permisos para utilizar la biometría -->

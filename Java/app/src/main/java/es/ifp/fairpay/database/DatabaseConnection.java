@@ -1,6 +1,9 @@
 package es.ifp.fairpay.database;
 
 import android.util.Log;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,10 +21,20 @@ public class DatabaseConnection {
     public interface ResultSetProcessor {
         void process(ResultSet rs) throws SQLException;
     }
+    /* Interfaz para procesar los resultados de la consulta y que se envíen a la pantalla */
+    public interface LoginListener {
+        void onLoginSuccess();
+        void onLoginFailure(String error);
+    }
+    /* Interfaz para procesar los resultados de la consulta y que se envíen a la pantalla */
+    public interface RegistroListener {
+        void onRegistroSuccess();
+        void onRegistroFailure(String error);
+    }
+    public void registrarUsuario(RegistroListener listener, String nombre, String apellidos, String correo, String contrasena_hash, String telefono, String direccionBilletera, String clavePrivadaCifrada) {
 
-    public void registrarUsuario(String nombre, String apellidos, String correo, String contrasena_hash, String telefono, String direccionBilletera, String clavePrivadaCifrada) {
         if (nombre == null || nombre.isEmpty() || apellidos == null || apellidos.isEmpty() || correo == null || correo.isEmpty() || contrasena_hash == null || contrasena_hash.isEmpty() || direccionBilletera == null || direccionBilletera.isEmpty()) {
-            Log.w("FairPayDB", "Intento de registro con datos esenciales incompletos.");
+            listener.onRegistroFailure("Todos los campos son obligatorios.");
             return;
         }
 
@@ -30,11 +43,22 @@ public class DatabaseConnection {
             Connection conn = null;
             PreparedStatement pstmtUsuario = null;
             PreparedStatement pstmtBilletera = null;
+            PreparedStatement pstmtEmail = null;
+            ResultSet rsEmail = null;
             ResultSet generatedKeys = null;
+
 
             try {
                 conn = DriverManager.getConnection(URL, USER, PASSWORD);
                 conn.setAutoCommit(false); //Se desactiva el auto commit para poder hacer un commit manual una vez que se han insertado todos los datos.
+
+                String sqlEmail = "SELECT correo FROM Usuario WHERE correo = ?";
+                pstmtEmail = conn.prepareStatement(sqlEmail);
+                pstmtEmail.setString(1, correo);
+                rsEmail = pstmtEmail.executeQuery();
+                if (rsEmail.next()) {
+                    throw new SQLException("El correo electrónico ya está en uso.");
+                }
 
                 String sqlUsuario = "INSERT INTO Usuario (nombre, apellidos,correo, contraseña_hash, telefono) VALUES (?, ?, ?, ?, ?)";
                 pstmtUsuario = conn.prepareStatement(sqlUsuario, Statement.RETURN_GENERATED_KEYS); //Devuelve los vlaores de ID del Autoincrement
@@ -65,7 +89,7 @@ public class DatabaseConnection {
 
                 conn.commit();
                 Log.d("FairPayDB", "TRANSACCIÓN COMPLETADA: Usuario " + nombre + " y su billetera han sido registrados.");
-
+                listener.onRegistroSuccess();
 
             } catch (SQLException e) {
                 Log.e("FairPayDB", "Errorr transacción", e);
@@ -74,7 +98,19 @@ public class DatabaseConnection {
                 } catch (SQLException eb) {
                     Log.e("FairPayDB", "Error al revertir la transacción", eb);
                 }
+                listener.onRegistroFailure(e.getMessage());
+
             } finally {
+                try {
+                    if(rsEmail !=null) rsEmail.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar rs.", e);
+                }
+                try {
+                    if(pstmtEmail !=null) pstmtEmail.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar pstmt.", e);
+                }
                 try {
                     if (generatedKeys != null) generatedKeys.close();
                 } catch (SQLException e) {
@@ -101,6 +137,50 @@ public class DatabaseConnection {
                 }
             }
         }).start();
+    }
+    public void loginUsuario(LoginListener listener, String correo, String password){
+        new Thread(() ->{
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            try {
+                conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                String sql = "SELECT contraseña_hash FROM Usuario WHERE Correo = ?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1,correo);
+                rs = pstmt.executeQuery();
+                if (rs.next()){
+                    String contraseña_hash = rs.getString("contraseña_hash");
+                    if(BCrypt.checkpw(password,contraseña_hash)){
+                        listener.onLoginSuccess();
+                    }else{
+                        listener.onLoginFailure("Contraseña incorrecta");
+                    }
+                }else{
+                    listener.onLoginFailure("Usuario no encontrado");
+                }
+            } catch (SQLException e) {
+                listener.onLoginFailure("Error al iniciar sesión");
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar rs.", e);
+                }
+                try {
+                    if (pstmt != null) pstmt.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar pstmt.", e);
+                }
+                try {
+                    if (conn != null) conn.close();
+                } catch (SQLException e) {
+                    Log.e("FairPayDB", "Error al cerrar rs.", e);
+                }
+            }
+
+        }).start();
+
     }
 
     // Metodo para obtener el contenido de una tabla y procesarlo
@@ -137,4 +217,6 @@ public class DatabaseConnection {
             }
         }).start();
     }
+
+
 }
