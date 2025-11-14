@@ -104,6 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frame_solicitud_wallet" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clayout_contactos_agenda"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="85dp"
@@ -113,6 +114,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text3_disputarTransaccion">
 
+        <ListView
+            android:id="@+id/listView_contactos_agenda"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:dividerHeight="0dp"
+            android:fadeScrollbars="false"
+            android:fastScrollAlwaysVisible="false"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:isScrollContainer="false"
+            app:layout_constraintBottom_toTopOf="@+id/boton_vertodo_wallet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/boton_vertodo_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:layout_marginEnd="141dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/transparente"
+            android:fontFamily="@font/open_sans"
+            android:text="@string/boton_movimientos"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

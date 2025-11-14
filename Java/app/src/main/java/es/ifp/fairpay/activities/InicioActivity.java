@@ -7,10 +7,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import es.ifp.fairpay.R;
 
 
@@ -30,14 +30,31 @@ public class InicioActivity extends AppCompatActivity {
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         // Controlador de navegación, para gestionar la carga de Fragments, transiciones y argumentos
-        NavController navController = null;
+        NavController navController;
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
+        } else {
+            navController = null;
         }
         // Barra de navegación inferior,
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         if (navController != null) {
             NavigationUI.setupWithNavController(bottomNav, navController);
         }
+        // Para limpiar el stack de pantallas cada vez que se pulsa el botón de la barra inferior
+        bottomNav.setOnItemSelectedListener(item -> {
+            int destinationId = item.getItemId();
+            // Limpia el stack anterior y navega al nuevo destino
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setPopUpTo(navController.getGraph().getStartDestinationId(), false)
+                    .build();
+            try {
+                navController.navigate(destinationId, null, navOptions);
+            } catch (IllegalArgumentException e) {
+                // Si ya estás en ese destino, evita error de navegación
+            }
+            return true;
+        });
     }
 }

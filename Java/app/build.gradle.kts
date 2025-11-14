@@ -32,30 +32,36 @@ android {
 }
 
 dependencies {
-    // Dependencias de Android
+    implementation(libs.bcrypt.v0102)
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+    implementation(libs.jbcrypt)
+    //implementation(libs.navigation.safeargs)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation (libs.mysql.connector.java)
 
     // Para el uso componentes biométricos
     implementation(libs.biometric)
 
-    
+    // Para el cifrado seguro de datos en reposo (claves privadas, etc.)
+    implementation("androidx.security:security-crypto:1.1.0")
+
     // Web3j para integración con Ethereum
     implementation(libs.web3j)
 
     // Para manejo de claves privadas
     // Se deja comentado porque da error al compilar
     //implementation("org.bitcoinj:bitcoinj-core:0.16.2")
-    
+
     // Para peticiones HTTP
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
-    
+
 
 }

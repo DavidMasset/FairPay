@@ -33,11 +33,24 @@
     <string name="divisa">Mi Cartera · EUR</string>
     <string name="solicitudes">Última solicitud pendiente</string>
     <string name="ultimos_movimientos">Últimos movimientos</string>
+    <string name="boton_movimientos">Ver todo</string>
+    <!-- String Fragment Agenda -->
+    <string name="anadircontacto">Añadir Contacto</string>
+    <string name="campo_nombre">Introducir nombre completo</string>
+    <string name="campo_alias">Introducir alias</string>
+    <string name="campo_wallet">Introducir wallet</string>
+    <string name="titulo_contacto">Contacto</string>
+    <string name="boton_eliminar_contacto">Eliminar contacto</string>
+    <string name="boton_solicitar">Solicitar Dinero</string>
+    <string name="boton_enviar">Enviar Dinero</string>
+    <string name="titulo_eliminar_contacto">Eliminar Contacto</string>
+    <string name="texto_info_eliminar_contacto">¿Realmente desea eliminar el contacto de forma definitiva?\n\nEsta acción no se puede deshacer y toda la información será borrada</string>
 
     <!-- Strings varios -->
     <string name="registro_ok">Tu registro se ha completado\n¡Gracias!</string>
     <string name="boton_aceptar">Aceptar</string>
-
+    <string name="boton_cancelar">Cancelar</string>
+    <string name="campos_obligatorios">Todos los campos son obligatorios</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
