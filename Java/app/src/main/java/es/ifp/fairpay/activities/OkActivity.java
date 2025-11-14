@@ -22,13 +22,13 @@ public class OkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ok);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ok), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.ModificarDatosOk), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-       aceptar = (Button) findViewById(R.id.button_aceptar_ok);
+       aceptar = (Button) findViewById(R.id.button_aceptar_DisputarMensaje);
 
        aceptar.setOnClickListener(new View.OnClickListener() {
            @Override

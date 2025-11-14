@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/walletFragment">
+    app:startDestination="@id/walletFragment"
+    tools:ignore="ExtraText">
 
     <fragment
         android:id="@+id/operacionesFragment"
@@ -30,4 +31,19 @@
         android:name="es.ifp.fairpay.fragments.WalletFragment"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/fragment_ayuda"
+        android:name="es.ifp.fairpay.fragments.Fragment_ayuda"
+        android:label="fragment_ayuda"
+        tools:layout="@layout/fragment_ayuda" />
+    <fragment
+        android:id="@+id/fragment_modificar_datos"
+        android:name="es.ifp.fairpay.fragments.Fragment_ModificarDatos"
+        android:label="fragment_modificar_datos"
+        tools:layout="@layout/fragment_modificar_datos" />
+    <fragment
+        android:id="@+id/fragment_sobre_nosotros"
+        android:name="es.ifp.fairpay.fragments.Fragment_SobreNosotros"
+        android:label="fragment_sobre_nosotros" />
+        tools:layout="@layout/fragment_sobre_nosotros"
 </navigation>

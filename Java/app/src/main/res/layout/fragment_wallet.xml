@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/wallet"
+    android:id="@+id/TerminosyCondiciones"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo_activity"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_divisa_wallet" />
 
     <TextView
-        android:id="@+id/text_solicitudes_wallet"
+        android:id="@+id/text_transaccionDisputar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -74,7 +74,7 @@
         android:radius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_solicitudes_wallet">
+        app:layout_constraintTop_toBottomOf="@+id/text_transaccionDisputar">
 
         <TextView
             android:id="@+id/text_solicitud_wallet"
@@ -90,7 +90,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/text_movimientos_wallet"
+        android:id="@+id/text3_disputarTransaccion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -111,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_movimientos_wallet">
+        app:layout_constraintTop_toBottomOf="@+id/text3_disputarTransaccion">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
