@@ -51,8 +51,9 @@
     <fragment
         android:id="@+id/fragment_sobre_nosotros"
         android:name="es.ifp.fairpay.fragments.Fragment_SobreNosotros"
-        android:label="fragment_sobre_nosotros" />
-        tools:layout="@layout/fragment_sobre_nosotros"
+        android:label="fragment_sobre_nosotros"
+        tools:layout="@layout/fragment_sobre_nosotros"/>
+    <fragment
         android:id="@+id/anadirContactoFragment"
         android:name="es.ifp.fairpay.fragments.AnadirContactoFragment"
         android:label="fragment_anadir_contacto"

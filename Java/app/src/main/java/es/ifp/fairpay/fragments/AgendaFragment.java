@@ -95,7 +95,7 @@ public class AgendaFragment extends Fragment {
         anadirContactos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.anadirContactoFragment);
+                navController.navigate(R.id.action_agendaFragment_to_anadirContactoFragment);
             }
         });
 
