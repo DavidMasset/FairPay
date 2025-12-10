@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FairPay</string>
     <!-- Strings de la barra de navegación -->
+    <string name="boton_vertodomovimientos_wallet">Ver todos los movimientos</string>
     <string name="operaciones_navbar">Operaciones</string>
     <string name="wallet_navbar">Wallet</string>
     <string name="movimientos_navbar">Movimientos</string>
