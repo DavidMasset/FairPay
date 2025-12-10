@@ -23,6 +23,7 @@ import java.security.GeneralSecurityException;
 import es.ifp.fairpay.R;
 import es.ifp.fairpay.database.DatabaseConnection;
 import es.ifp.fairpay.security.EncryptManager;
+import es.ifp.fairpay.utils.ValidationUtils;
 
 public class RegistroActivity extends AppCompatActivity {
     protected Intent pasarPantalla;
@@ -94,7 +95,11 @@ public class RegistroActivity extends AppCompatActivity {
                     Toast.makeText(RegistroActivity.this, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                /*Test validation*/
+                if (!ValidationUtils.isValidEmail(emailRegistro)) {
+                    Toast.makeText(RegistroActivity.this, "El formato del correo electrónico no es válido.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try {
                     /* gensalt() genera un "salt" aleatorio para cada contraseña.*/
                     String contrasenaHash = BCrypt.hashpw(passwordRegistro, BCrypt.gensalt());
