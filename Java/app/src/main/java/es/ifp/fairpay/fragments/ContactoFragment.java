@@ -10,77 +10,91 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import es.ifp.fairpay.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ContactoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ContactoFragment extends Fragment {
 
-    Button eliminarContacto;
+    // Vistas de la interfaz
+    private TextView tvNombre, tvWallet, tvAlias;
+    private Button btnEnviar, btnEliminar;
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // Variables para almacenar los datos del contacto
+    private String contactName;
+    private String contactWallet;
 
     public ContactoFragment() {
-        // Required empty public constructor
+        // Constructor público vacío requerido por Android
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ContactoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ContactoFragment newInstance(String param1, String param2) {
-        ContactoFragment fragment = new ContactoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    // Esta función se encarga de inflar el diseño visual del fragmento para que se muestre en la pantalla
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_contacto, container, false);
     }
 
-    // Cuando la vista ya está creada
+    // Esta función se encarga de inicializar los datos del contacto recibido y configurar los botones de acción
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        eliminarContacto = view.findViewById(R.id.boton_eliminar_contacto);
+
+        // Vinculación de los elementos de la interfaz con las variables
+        tvNombre = view.findViewById(R.id.text_contacto_contacto);
+        tvWallet = view.findViewById(R.id.text_wallet_contacto);
+        tvAlias = view.findViewById(R.id.text_alias_contacto);
+        btnEnviar = view.findViewById(R.id.boton_enviar_contacto);
+        btnEliminar = view.findViewById(R.id.boton_eliminar_contacto);
+
         NavController navController = Navigation.findNavController(view);
 
-        eliminarContacto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Recuperación de los datos enviados desde la Agenda (Bundle)
+        if (getArguments() != null) {
+            contactName = getArguments().getString("CONTACT_NAME");
+            contactWallet = getArguments().getString("CONTACT_WALLET");
+
+            // Rellenamos la UI con los datos reales del contacto si existen
+            if (contactName != null) tvNombre.setText(contactName);
+            if (contactWallet != null) tvWallet.setText(contactWallet);
+
+            // Generación de un alias visual estético basado en el nombre del contacto
+            if (contactName != null) {
+                String[] parts = contactName.split(" ");
+                if (parts.length > 0) {
+                    tvAlias.setText("@" + parts[0].toLowerCase());
+                } else {
+                    tvAlias.setText("@usuario");
+                }
+            }
+        }
+
+        // Listener para el botón de enviar dinero, que navega a la pantalla de Operaciones pre-cargando la wallet del vendedor
+        btnEnviar.setOnClickListener(v -> {
+            if (contactWallet != null) {
+                // Preparamos el paquete de datos para OperacionesFragment
+                Bundle args = new Bundle();
+                // "WALLET_VENDEDOR" es la clave que espera OperacionesFragment
+                args.putString("WALLET_VENDEDOR", contactWallet);
+
+                // Navegamos a la pantalla de Operaciones
+                try {
+                    navController.navigate(R.id.operacionesFragment, args);
+                } catch (IllegalArgumentException e) {
+                    Toast.makeText(getContext(), "Error navegando a Operaciones", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Error: Contacto sin wallet", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Listener para el botón de eliminar contacto (navegación a pantalla de confirmación)
+        btnEliminar.setOnClickListener(v -> {
+            try {
                 navController.navigate(R.id.action_contactoFragment_to_eliminarContactoFragment);
+            } catch (Exception e) {
+                // Gestión silenciosa de errores de navegación
             }
         });
     }

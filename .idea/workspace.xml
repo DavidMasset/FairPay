@@ -1,11 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+    <layouts>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/activity_inicio.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/activity_load_screen.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_agenda.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_contacto.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_movimientos.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_wallet.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+    </layouts>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1c1d17b-7a2e-4235-a310-22c70e977e49" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/drawable/logo_ethereum.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/RegistroActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/RegistroActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/database/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/AgendaFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/AgendaFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/ContactoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/ContactoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/MovimientosFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/MovimientosFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/OperacionesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/OperacionesFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/PerfilFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/PerfilFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/WalletFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/WalletFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_contacto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_contacto.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_movimientos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_movimientos.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_wallet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_wallet.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Java/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Java/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Java/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/Java/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Java/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +87,24 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=O1E1XT232305219)]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/Java">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -58,9 +149,12 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/DavidMasset/FairPay.git&quot;,
-    &quot;accountId&quot;: &quot;341622be-6cf4-485f-be99-8818c07f9412&quot;
+    &quot;accountId&quot;: &quot;e5db2a5f-be83-4753-812f-a57aefb7c3dc&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -71,6 +165,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Android App.FairPay.app.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
@@ -79,10 +174,12 @@
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SHELLCHECK.PATH": "/Users/juliofernandezruiz/Library/Application Support/Google/AndroidStudio2025.1.4/plugins/Shell Script/shellcheck",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main__julio__Fernandez",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "Operaciones__FP__Jose",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.12376237",
@@ -90,6 +187,79 @@
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="FairPay.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="FairPay.app" />
+      <option name="ANDROID_RUN_CONFIGURATION_SCHEMA_VERSION" value="1" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="ALLOW_ASSUME_VERIFIED" value="false" />
+      <option name="CLEAR_APP_STORAGE" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="RESTORE_ENABLED" value="false" />
+      <option name="RESTORE_FILE" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Hybrid>
+      <Java>
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Java>
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+        <option name="ATTACH_ON_WAIT_FOR_DEBUGGER" value="false" />
+        <option name="DEBUG_SANDBOX_SDK" value="false" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -100,5 +270,21 @@
       <updated>1761043384986</updated>
     </task>
     <servers />
+  </component>
+  <component name="play_dynamic_filters_status">
+    <option name="appIdToCheckInfo">
+      <map>
+        <entry key="es.ifp.fairpay">
+          <value>
+            <CheckInfo lastCheckTimestamp="1765390899839" />
+          </value>
+        </entry>
+        <entry key="es.ifp.fairpay.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1765390899839" />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

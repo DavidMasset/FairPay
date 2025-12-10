@@ -1,62 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/TerminosyCondiciones"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondo_activity"
-    android:padding="20dp"
-    tools:context=".fragments.WalletFragment">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#C9C5E3"> <!-- Fondo principal -->
 
     <TextView
-        android:id="@+id/text_titulo_Movimientos"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_movimientos_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
         android:text="Movimientos"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/listView_movimientos"
-        android:layout_width="364dp"
-        android:layout_height="503dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="85dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-        <!-- tus vistas aquí -->
-
-    <EditText
-        android:id="@+id/edtBuscar_movimientos"
-        android:layout_width="295dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="#F3F3F3"
-        android:drawableStart="@android:drawable/ic_menu_search"
-        android:drawablePadding="8dp"
-        android:hint="Buscar..."
-        android:imeOptions="actionSearch"
-        android:inputType="text"
         android:textColor="#000000"
-        android:textColorHint="#808080"
-        app:layout_constraintBottom_toTopOf="@+id/listView_movimientos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_Movimientos" />
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buscar depósitos por Wallet Pública:"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- CAMBIO: EditText -> AutoCompleteTextView para el desplegable -->
+    <AutoCompleteTextView
+        android:id="@+id/input_search_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Ej: 0x123..."
+        android:textColor="#000000"
+        android:textColorHint="#555555"
+        android:background="@android:drawable/edit_text"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="12dp"
+        android:paddingStart="12dp"
+        android:inputType="textNoSuggestions"
+        android:completionThreshold="0"
+        android:layout_marginBottom="16dp"/>
 
+    <Button
+        android:id="@+id/btn_search_movements"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#6554D1"
+        android:text="Buscar en blockchain"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/tv_movements_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estado: Esperando búsqueda..."
+        android:gravity="center"
+        android:textColor="#444444"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- Scroll para la lista de resultados -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#C9C5E3"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/container_movements_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Aquí se añadirán las tarjetas dinámicamente -->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btn_movements_back"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="VOLVER"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#CCCCCC"
+        android:textColor="#333333"/>
+
+</LinearLayout>

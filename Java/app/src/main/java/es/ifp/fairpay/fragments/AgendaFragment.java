@@ -18,80 +18,57 @@ import java.util.ArrayList;
 import es.ifp.fairpay.R;
 
 public class AgendaFragment extends Fragment {
+
     protected ListView lista;
-    protected ArrayList<String> listaArray = new ArrayList<String>();
+    // Usamos dos listas paralelas: una para mostrar nombres y otra oculta para las wallets
+    protected ArrayList<String> listaNombres = new ArrayList<String>();
+    protected ArrayList<String> listaWallets = new ArrayList<String>();
+
     protected ArrayAdapter<String> adaptador;
     protected Button anadirContactos;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public AgendaFragment() {
-        // Required empty public constructor
+        // Constructor público vacío requerido por Android
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AgendaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AgendaFragment newInstance(String param1, String param2) {
-        AgendaFragment fragment = new AgendaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    // Esta función se encarga de inflar el diseño visual del fragmento para que se muestre en la pantalla
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_agenda, container, false);
     }
 
-    // Cuando la vista ya está creada
+    // Esta función se encarga de inicializar la lógica de la lista de contactos y configurar la navegación al hacer clic en un elemento
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Instancia de los elementos
+        // Vinculación de los elementos de la interfaz
         lista = view.findViewById(R.id.listView_contactos_agenda);
         anadirContactos = view.findViewById(R.id.boton_anadirContacto_agenda);
         NavController navController = Navigation.findNavController(view);
 
+        // Limpieza e inicialización de datos de prueba (Hardcoded)
+        listaNombres.clear();
+        listaWallets.clear();
 
-        // Contenido de prueba, se carga desde BD
-        listaArray.clear();
-        listaArray.add("Contacto1");
-        listaArray.add("Contacto2");
-        listaArray.add("Contacto3");
-        listaArray.add("Contacto4");
-        listaArray.add("Contacto5");
+        listaNombres.add("Juan Antonio Garcia");
+        listaWallets.add("0x7f0215e059183f9720525ffe4c233101b3d93ba5");
 
-        adaptador = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1 , listaArray);
+        listaNombres.add("Manuel Montes Díaz");
+        listaWallets.add("0x7f0215e059183f9720525ffe4c233101b3d93ba5");
+
+        listaNombres.add("David Gonzalez Fernández");
+        listaWallets.add("0x43b05f553ddeff68eec47248c9b06ed48b100b97");
+
+        listaNombres.add("Laura Martín");
+        listaWallets.add("0x0000000000000000000000000000000000000000");
+
+        // Configuración del adaptador para mostrar visualmente solo los nombres en la lista
+        adaptador = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listaNombres);
         lista.setAdapter(adaptador);
 
+        // Listener para el botón de añadir nuevo contacto
         anadirContactos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,15 +76,27 @@ public class AgendaFragment extends Fragment {
             }
         });
 
+        // Listener para detectar la selección de un contacto y navegar a su ficha detallada
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                navController.navigate(R.id.contactoFragment);
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Recuperamos los datos sincronizados de las listas paralelas usando la posición clicada
+                String nombreSeleccionado = listaNombres.get(position);
+                String walletSeleccionada = listaWallets.get(position);
+
+                // Preparamos el paquete de datos para enviarlo al siguiente fragmento (ContactoFragment)
+                Bundle bundle = new Bundle();
+
+                // Datos visuales para la ficha
+                bundle.putString("CONTACT_NAME", nombreSeleccionado);
+                bundle.putString("CONTACT_WALLET", walletSeleccionada);
+
+                // Dato funcional para operaciones futuras (botón enviar dinero)
+                bundle.putString("WALLET_VENDEDOR", walletSeleccionada);
+
+                // Ejecutamos la navegación pasando los datos
+                navController.navigate(R.id.contactoFragment, bundle);
             }
         });
-
     }
-
-
-
 }
