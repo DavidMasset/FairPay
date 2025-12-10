@@ -25,22 +25,22 @@
         android:theme="@style/Theme.FairPay"
         tools:targetApi="31">
         <activity
-            android:name=".activities.OkActivity"
+            android:name=".ui.common.OkActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoadScreenActivity"
+            android:name=".ui.authenticator.LoadScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.RegistroActivity"
+            android:name=".ui.authenticator.RegistroActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.InicioActivity"
+            android:name=".ui.authenticator.InicioActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".ui.authenticator.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

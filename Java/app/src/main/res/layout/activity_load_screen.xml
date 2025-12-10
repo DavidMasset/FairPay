@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_screen"
-    tools:context=".activities.LoadScreenActivity">
+    tools:context=".ui.authenticator.LoadScreenActivity">
 
     <ProgressBar
         android:id="@+id/progressBar_load_screen"

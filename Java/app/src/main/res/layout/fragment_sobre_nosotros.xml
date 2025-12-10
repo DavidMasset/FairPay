@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="#4D5059"
     android:padding="20dp"
-    tools:context=".fragments.WalletFragment">
+    tools:context=".ui.main.WalletFragment">
 
     <!-- 🔹 Título principal -->
     <TextView

@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
+import es.ifp.fairpay.data.security.EncryptManager;
+
 /**
  * Prueba instrumentada para la clase EncryptManager.
  * Esta prueba se ejecuta en un dispositivo o emulador Android para verificar
