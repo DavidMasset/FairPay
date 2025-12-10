@@ -15,6 +15,8 @@ public class ValidationUtils {
     public static boolean isValidEmail(CharSequence email) {
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
-
+    public static boolean isValidPassword(CharSequence password){
+        return password != null && password.length() >= 8;
+    }
     // Aquí podrías añadir otras validaciones en el futuro (contraseñas, números, etc.)
 }
