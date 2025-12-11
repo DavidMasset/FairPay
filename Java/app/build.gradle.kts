@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.android.application)
 }
 
 android {
@@ -7,7 +7,6 @@ android {
     compileSdk = 35
 
     defaultConfig {
-
         applicationId = "es.ifp.fairpay"
         minSdk = 26
         targetSdk = 35
@@ -26,7 +25,6 @@ android {
             )
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -38,9 +36,7 @@ dependencies {
     // --- INTEGRACIÓN BLOCKCHAIN & SEGURIDAD ---
     implementation("org.web3j:core:4.8.8-android")
     implementation("org.mindrot:jbcrypt:0.4")
-
     implementation ("mysql:mysql-connector-java:5.1.49")
-
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     // --- DISEÑO Y NAVEGACIÓN ---

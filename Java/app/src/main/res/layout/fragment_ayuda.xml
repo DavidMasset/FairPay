@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#4D5059"
     android:padding="20dp"
-    tools:context=".fragments.Fragment_ayuda">
+    tools:context=".ui.main.profile.help.HelpFragment">
 
     <TextView
         android:id="@+id/text_titulo_PreguntasFrecuentes"
