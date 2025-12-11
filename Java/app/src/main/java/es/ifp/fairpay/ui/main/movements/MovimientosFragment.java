@@ -27,9 +27,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
-import es.ifp.fairpay.FairPayService;
+import es.ifp.fairpay.data.service.FairPayService;
 import es.ifp.fairpay.R;
-import es.ifp.fairpay.activities.MainActivity;
+import es.ifp.fairpay.ui.main.MainActivity;
 
 public class MovimientosFragment extends Fragment {
 

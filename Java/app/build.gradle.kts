@@ -32,26 +32,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.bcrypt.v0102)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
-    implementation(libs.jbcrypt)
-    //implementation(libs.navigation.safeargs)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
-    implementation (libs.mysql.connector.java)
 
     // --- INTEGRACIÓN BLOCKCHAIN & SEGURIDAD ---
     implementation("org.web3j:core:4.8.8-android")
     implementation("org.mindrot:jbcrypt:0.4")
-
     implementation ("mysql:mysql-connector-java:5.1.49")
-
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
     // --- DISEÑO Y NAVEGACIÓN ---

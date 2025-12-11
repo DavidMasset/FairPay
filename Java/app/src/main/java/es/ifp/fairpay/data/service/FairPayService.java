@@ -1,4 +1,4 @@
-package es.ifp.fairpay;
+package es.ifp.fairpay.data.service;
 
 import org.web3j.abi.EventEncoder;
 import org.web3j.abi.FunctionEncoder;
