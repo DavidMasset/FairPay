@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/open_sans"
-        android:text="Juan Antonio García"
+        android:text="Nombre Contacto"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/open_sans"
-        android:text="nickUsuario"
+        android:text="@usuario"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/open_sans"
-        android:text="0xC3P0F36260817d1c78C471406BdE482177a1935071"
+        android:text="0x..."
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="12sp"
@@ -79,10 +79,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_alias_contacto" />
 
+    <!-- Contenedor de Botones: Ahora solo con ENVIAR -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clayout_botones_contacto"
         android:layout_width="0dp"
-        android:layout_height="128dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
@@ -92,35 +93,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_wallet_contacto">
 
-        <Button
-            android:id="@+id/boton_solicitar_contacto"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans"
-            android:text="@string/boton_solicitar"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!-- Botón Solicitar ELIMINADO -->
 
         <Button
             android:id="@+id/boton_enviar_contacto"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:fontFamily="@font/open_sans"
             android:text="@string/boton_enviar"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:cornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -142,6 +131,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

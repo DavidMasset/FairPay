@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "es.ifp.fairpay"
-        minSdk = 28
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -46,21 +46,30 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation (libs.mysql.connector.java)
 
-    // Para el uso componentes biométricos
-    implementation(libs.biometric)
+    // --- INTEGRACIÓN BLOCKCHAIN & SEGURIDAD ---
+    implementation("org.web3j:core:4.8.8-android")
+    implementation("org.mindrot:jbcrypt:0.4")
 
-    // Para el cifrado seguro de datos en reposo (claves privadas, etc.)
-    implementation("androidx.security:security-crypto:1.1.0")
+    implementation ("mysql:mysql-connector-java:5.1.49")
 
-    // Web3j para integración con Ethereum
-    implementation(libs.web3j)
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
-    // Para manejo de claves privadas
-    // Se deja comentado porque da error al compilar
-    //implementation("org.bitcoinj:bitcoinj-core:0.16.2")
+    // --- DISEÑO Y NAVEGACIÓN ---
 
-    // Para peticiones HTTP
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+    // AndroidX Core
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.activity:activity:1.9.2")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
+    // Navigation Component
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
+
+    // --- TESTING ---
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }
