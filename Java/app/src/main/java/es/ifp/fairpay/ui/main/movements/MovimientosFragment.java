@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 
+import es.ifp.fairpay.data.repository.UserRepository;
 import es.ifp.fairpay.data.service.FairPayService;
 import es.ifp.fairpay.R;
 import es.ifp.fairpay.ui.main.MainActivity;
@@ -126,9 +127,10 @@ public class MovimientosFragment extends Fragment {
 
     // Esta función se encarga de recuperar la clave privada del usuario (de MainActivity o SharedPreferences) y configurar la sugerencia de su propia wallet
     private void loadUserKeyAndSetupAutocomplete() {
+        UserRepository userRepository = new UserRepository();
         // 1. Cargar clave privada
-        if (getActivity() instanceof MainActivity) {
-            String key = ((MainActivity) getActivity()).getUsuarioClavePrivada();
+        if (mContext != null) {
+            String key = userRepository.getUsuarioClavePrivada(mContext);
             if (key != null && !key.isEmpty()) currentUserPrivateKey = key;
         } else {
             SharedPreferences prefs = mContext.getSharedPreferences("FairPayPrefs", Context.MODE_PRIVATE);

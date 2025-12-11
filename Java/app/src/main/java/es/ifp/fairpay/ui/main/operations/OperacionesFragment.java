@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import es.ifp.fairpay.R;
+import es.ifp.fairpay.data.repository.UserRepository;
 import es.ifp.fairpay.data.service.FairPayService;
 import es.ifp.fairpay.ui.main.MainActivity;
 import es.ifp.fairpay.data.database.DatabaseConnection;
@@ -286,10 +287,10 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de rellenar los campos de clave privada automáticamente si ya está en sesión
     private void autoFillKeys() {
+        UserRepository userRepository = new UserRepository();
         String myKey = "";
-        if (getActivity() instanceof MainActivity) {
-            MainActivity main = (MainActivity) getActivity();
-            myKey = main.getUsuarioClavePrivada();
+        if (getContext() !=null) {
+            myKey = userRepository.getUsuarioClavePrivada(getContext());
         }
         if (myKey == null || myKey.isEmpty()) {
             if (getContext() != null) {
@@ -532,6 +533,11 @@ public class OperacionesFragment extends Fragment {
             String pk = inputPrivateKey.getText().toString().trim();
             String seller = inputSeller.getText().toString().trim();
             if (pk.isEmpty() || seller.isEmpty()) return;
+            // Antes de realizar la operación, guardamos la clave introducida para futuras sesiones.
+            if (getContext() != null) {
+                UserRepository userRepository = new UserRepository();
+                userRepository.setUsuarioClavePrivada(getContext(), pk);
+            }
             performCreateEscrow(pk, seller);
         });
 
@@ -564,14 +570,10 @@ public class OperacionesFragment extends Fragment {
             hideKeyboard();
             String idStr = inputExistingEscrowId.getText().toString().trim();
             if (idStr.isEmpty()) return;
+            UserRepository userRepository = new UserRepository();
             String currentKey = "";
-            if (getActivity() instanceof MainActivity) currentKey = ((MainActivity) getActivity()).getUsuarioClavePrivada();
-            if (currentKey == null || currentKey.isEmpty()) {
                 if (getContext() != null) {
-                    SharedPreferences prefs = getContext().getSharedPreferences("FairPayPrefs", Context.MODE_PRIVATE);
-                    currentKey = prefs.getString("CURRENT_USER_PRIVATE_KEY", "");
-                }
-            }
+                    currentKey = userRepository.getUsuarioClavePrivada(getContext());                }
             performCheckStatus(currentKey, idStr);
         });
 
@@ -605,9 +607,12 @@ public class OperacionesFragment extends Fragment {
             else if(!inputPrivateKeyFund.getText().toString().isEmpty()) myKey = inputPrivateKeyFund.getText().toString();
 
             if(myKey.isEmpty()) {
-                SharedPreferences prefs = mContext.getSharedPreferences("FairPayPrefs", Context.MODE_PRIVATE);
-                myKey = prefs.getString("CURRENT_USER_PRIVATE_KEY", "");
+                if(mContext !=null) {
+                    UserRepository userRepository = new UserRepository();
+                    myKey = userRepository.getUsuarioClavePrivada(mContext);
+                }
             }
+
 
             if(myKey.isEmpty()) {
                 Toast.makeText(mContext, "Error: No se encuentra clave privada para validar la operación.", Toast.LENGTH_LONG).show();
