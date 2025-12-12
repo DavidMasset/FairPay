@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import es.ifp.fairpay.R;
+import es.ifp.fairpay.data.repository.OperationsRepository;
 import es.ifp.fairpay.data.repository.UserRepository;
 import es.ifp.fairpay.data.service.FairPayService;
 import es.ifp.fairpay.ui.main.MainActivity;
@@ -138,7 +139,10 @@ public class OperacionesFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) { super.onAttach(context); mContext = context; }
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     // Esta función se encarga de inflar la vista del fragmento e inicializar la interfaz
     @Nullable
@@ -193,8 +197,8 @@ public class OperacionesFragment extends Fragment {
     // Esta función se encarga de obtener el email del usuario logueado desde las preferencias
     private void getCurrentUserContext() {
         if (getContext() != null) {
-            SharedPreferences prefs = getContext().getSharedPreferences("FairPayPrefs", Context.MODE_PRIVATE);
-            currentUserEmail = prefs.getString("CURRENT_USER_EMAIL", "");
+            UserRepository userRepository = new UserRepository();
+            currentUserEmail = userRepository.getUsuarioEmail(getContext());
         }
     }
 
@@ -202,33 +206,24 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de guardar el estado actual de la operación para recuperarlo si la app se cierra
     private void saveOperationState(String state, String hash, String id, String logMsg) {
-        if (getContext() == null) return;
-        SharedPreferences prefs = getContext().getSharedPreferences("FairPayState", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(PREF_OP_STATE, state);
-        if (hash != null) editor.putString(PREF_OP_HASH, hash);
-        if (id != null) editor.putString(PREF_OP_ID, id);
-        if (logMsg != null) editor.putString(PREF_OP_LOG, logMsg);
-
-        // Vinculamos el estado al usuario actual para evitar mezclar sesiones
-        editor.putString(PREF_OP_USER, currentUserEmail);
-
-        editor.apply();
+        OperationsRepository operationsRepository = new OperationsRepository();
+        operationsRepository.saveOperationState(getContext(), state, currentUserEmail, hash, id, logMsg);
     }
 
     // Esta función se encarga de limpiar cualquier estado de operación guardado
     private void clearOperationState() {
-        if (getContext() == null) return;
-        SharedPreferences prefs = getContext().getSharedPreferences("FairPayState", Context.MODE_PRIVATE);
-        prefs.edit().clear().apply();
+        OperationsRepository operationsRepository = new OperationsRepository();
+        operationsRepository.clearOperationState(getContext());
         lastTxHash = null;
         lastEscrowId = null;
     }
 
+
     // Esta función se encarga de restaurar la interfaz al estado donde se quedó el usuario
     private void restoreOperationState() {
         if (getContext() == null) return;
-        SharedPreferences prefs = getContext().getSharedPreferences("FairPayState", Context.MODE_PRIVATE);
+        OperationsRepository operationsRepository = new OperationsRepository();
+        SharedPreferences prefs = operationsRepository.restoreOperationState(getContext());
 
         String savedUser = prefs.getString(PREF_OP_USER, "");
         if (!savedUser.equals(currentUserEmail)) {
@@ -289,7 +284,7 @@ public class OperacionesFragment extends Fragment {
     private void autoFillKeys() {
         UserRepository userRepository = new UserRepository();
         String myKey = "";
-        if (getContext() !=null) {
+        if (getContext() != null) {
             myKey = userRepository.getUsuarioClavePrivada(getContext());
         }
         if (myKey == null || myKey.isEmpty()) {
@@ -380,6 +375,7 @@ public class OperacionesFragment extends Fragment {
                 applyCustomStyle(tv, getItem(position));
                 return view;
             }
+
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -387,6 +383,7 @@ public class OperacionesFragment extends Fragment {
                 applyCustomStyle(tv, getItem(position));
                 return view;
             }
+
             private void applyCustomStyle(TextView tv, String text) {
                 int bgColor = Color.WHITE;
                 int textColor = Color.BLACK;
@@ -453,6 +450,7 @@ public class OperacionesFragment extends Fragment {
                 applyCustomStyle(tv, getItem(position));
                 return view;
             }
+
             @Override
             public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -460,6 +458,7 @@ public class OperacionesFragment extends Fragment {
                 applyCustomStyle(tv, getItem(position));
                 return view;
             }
+
             private void applyCustomStyle(TextView tv, String text) {
                 int bgColor = Color.WHITE;
                 int textColor = Color.BLACK;
@@ -514,18 +513,61 @@ public class OperacionesFragment extends Fragment {
             }
         });
 
-        btnSelectBuyer.setOnClickListener(v -> { hideKeyboard(); showView(layoutBuyerMenu); autoFillKeys(); });
-        btnSelectSeller.setOnClickListener(v -> { hideKeyboard(); showView(layoutSellerMenu); autoFillKeys(); tvResultadoLog.setText("VENDEDOR: Introduce tus datos para recibir el pago."); });
-        btnSelectDispute.setOnClickListener(v -> { hideKeyboard(); showView(layoutDisputeMenu); tvResultadoLog.setText(""); });
+        btnSelectBuyer.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutBuyerMenu);
+            autoFillKeys();
+        });
+        btnSelectSeller.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutSellerMenu);
+            autoFillKeys();
+            tvResultadoLog.setText("VENDEDOR: Introduce tus datos para recibir el pago.");
+        });
+        btnSelectDispute.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutDisputeMenu);
+            tvResultadoLog.setText("");
+        });
 
-        btnBuyerBack.setOnClickListener(v -> { hideKeyboard(); showView(layoutMainMenu); tvResultadoLog.setText(""); });
-        btnSellerBack.setOnClickListener(v -> { hideKeyboard(); showView(layoutMainMenu); tvResultadoLog.setText(""); });
-        btnDisputeBack.setOnClickListener(v -> { hideKeyboard(); showView(layoutMainMenu); tvResultadoLog.setText(""); });
+        btnBuyerBack.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutMainMenu);
+            tvResultadoLog.setText("");
+        });
+        btnSellerBack.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutMainMenu);
+            tvResultadoLog.setText("");
+        });
+        btnDisputeBack.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutMainMenu);
+            tvResultadoLog.setText("");
+        });
 
-        btnBuyerNew.setOnClickListener(v -> { hideKeyboard(); showView(layoutFormsContainer); layoutCreateEscrow.setVisibility(View.VISIBLE); autoFillKeys(); tvResultadoLog.setText("PASO 1: Comprador inicia el depósito."); });
-        btnBuyerExisting.setOnClickListener(v -> { hideKeyboard(); showView(layoutExistingEscrowBuyer); tvResultadoLog.setText(""); });
-        btnFormBackBuyer.setOnClickListener(v -> { hideKeyboard(); showView(layoutBuyerMenu); tvResultadoLog.setText(""); });
-        btnExistingBackBuyer.setOnClickListener(v -> { hideKeyboard(); showView(layoutBuyerMenu); tvResultadoLog.setText(""); });
+        btnBuyerNew.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutFormsContainer);
+            layoutCreateEscrow.setVisibility(View.VISIBLE);
+            autoFillKeys();
+            tvResultadoLog.setText("PASO 1: Comprador inicia el depósito.");
+        });
+        btnBuyerExisting.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutExistingEscrowBuyer);
+            tvResultadoLog.setText("");
+        });
+        btnFormBackBuyer.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutBuyerMenu);
+            tvResultadoLog.setText("");
+        });
+        btnExistingBackBuyer.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutBuyerMenu);
+            tvResultadoLog.setText("");
+        });
 
         // Acciones que interactúan con Blockchain
         btnEnviarEscrow.setOnClickListener(v -> {
@@ -541,25 +583,36 @@ public class OperacionesFragment extends Fragment {
             performCreateEscrow(pk, seller);
         });
 
-        btnSearchId.setOnClickListener(v -> { hideKeyboard(); if (lastTxHash != null) performSearchEscrowId(lastTxHash); });
+        btnSearchId.setOnClickListener(v -> {
+            hideKeyboard();
+            if (lastTxHash != null) performSearchEscrowId(lastTxHash);
+        });
 
         btnFundEscrow.setOnClickListener(v -> {
             hideKeyboard();
             String pk = inputPrivateKeyFund.getText().toString().trim();
-            if (pk.isEmpty()) { Toast.makeText(mContext, "Introduce tu clave privada", Toast.LENGTH_LONG).show(); return; }
+            if (pk.isEmpty()) {
+                Toast.makeText(mContext, "Introduce tu clave privada", Toast.LENGTH_LONG).show();
+                return;
+            }
             if (lastEscrowId == null) return;
             String amountStr = inputFundAmount.getText().toString().trim();
             try {
                 performFundEscrow(pk, lastEscrowId, Convert.toWei(new BigDecimal(amountStr), Convert.Unit.ETHER).toBigInteger());
-            } catch (Exception e) { Toast.makeText(mContext, "Monto inválido", Toast.LENGTH_SHORT).show(); }
+            } catch (Exception e) {
+                Toast.makeText(mContext, "Monto inválido", Toast.LENGTH_SHORT).show();
+            }
         });
 
         btnBuyerApprove.setOnClickListener(v -> {
             hideKeyboard();
             String pk = inputPrivateKey.getText().toString().trim();
-            if(pk.isEmpty()) pk = inputPrivateKeyFund.getText().toString().trim();
+            if (pk.isEmpty()) pk = inputPrivateKeyFund.getText().toString().trim();
             if (btnBuyerApprove.getText().toString().equals("Aprobar recepción")) {
-                if (pk.isEmpty()) { Toast.makeText(mContext, "Introduce tu clave privada", Toast.LENGTH_LONG).show(); return; }
+                if (pk.isEmpty()) {
+                    Toast.makeText(mContext, "Introduce tu clave privada", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (lastEscrowId != null) performApprove(lastEscrowId, pk, "COMPRADOR");
             } else {
                 performVerifyCompletion(pk, lastEscrowId);
@@ -572,13 +625,20 @@ public class OperacionesFragment extends Fragment {
             if (idStr.isEmpty()) return;
             UserRepository userRepository = new UserRepository();
             String currentKey = "";
-                if (getContext() != null) {
-                    currentKey = userRepository.getUsuarioClavePrivada(getContext());                }
+            if (getContext() != null) {
+                currentKey = userRepository.getUsuarioClavePrivada(getContext());
+            }
             performCheckStatus(currentKey, idStr);
         });
 
-        btnSellerCheckStatus.setOnClickListener(v -> { hideKeyboard(); performSellerCheckOnly(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(inputSellerEscrowId.getText().toString().trim())); });
-        btnSellerReceivePayment.setOnClickListener(v -> { hideKeyboard(); performSellerCheckAndClaim(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(inputSellerEscrowId.getText().toString().trim())); });
+        btnSellerCheckStatus.setOnClickListener(v -> {
+            hideKeyboard();
+            performSellerCheckOnly(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(inputSellerEscrowId.getText().toString().trim()));
+        });
+        btnSellerReceivePayment.setOnClickListener(v -> {
+            hideKeyboard();
+            performSellerCheckAndClaim(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(inputSellerEscrowId.getText().toString().trim()));
+        });
 
         // --- LÓGICA DE DISPUTAS ---
         btnOpenDisputeMenu.setOnClickListener(v -> {
@@ -588,7 +648,10 @@ public class OperacionesFragment extends Fragment {
             inputDisputeReason.setText("");
             showView(layoutOpenDisputeForm);
         });
-        btnOpenDisputeBack.setOnClickListener(v -> { hideKeyboard(); showView(layoutDisputeMenu); });
+        btnOpenDisputeBack.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutDisputeMenu);
+        });
 
         btnSubmitDispute.setOnClickListener(v -> {
             hideKeyboard();
@@ -596,25 +659,28 @@ public class OperacionesFragment extends Fragment {
             String r = inputDisputeReason.getText().toString().trim();
             String role = spinnerDisputeRole.getSelectedItem().toString();
 
-            if(idStr.isEmpty() || r.isEmpty() || currentUserEmail.isEmpty()) {
+            if (idStr.isEmpty() || r.isEmpty() || currentUserEmail.isEmpty()) {
                 Toast.makeText(mContext, "Rellene ID, Motivo y asegúrese de estar logueado.", Toast.LENGTH_LONG).show();
                 return;
             }
 
             String myKey = "";
-            if(!inputPrivateKey.getText().toString().isEmpty()) myKey = inputPrivateKey.getText().toString();
-            else if(!inputSellerPrivateKey.getText().toString().isEmpty()) myKey = inputSellerPrivateKey.getText().toString();
-            else if(!inputPrivateKeyFund.getText().toString().isEmpty()) myKey = inputPrivateKeyFund.getText().toString();
+            if (!inputPrivateKey.getText().toString().isEmpty())
+                myKey = inputPrivateKey.getText().toString();
+            else if (!inputSellerPrivateKey.getText().toString().isEmpty())
+                myKey = inputSellerPrivateKey.getText().toString();
+            else if (!inputPrivateKeyFund.getText().toString().isEmpty())
+                myKey = inputPrivateKeyFund.getText().toString();
 
-            if(myKey.isEmpty()) {
-                if(mContext !=null) {
+            if (myKey.isEmpty()) {
+                if (mContext != null) {
                     UserRepository userRepository = new UserRepository();
                     myKey = userRepository.getUsuarioClavePrivada(mContext);
                 }
             }
 
 
-            if(myKey.isEmpty()) {
+            if (myKey.isEmpty()) {
                 Toast.makeText(mContext, "Error: No se encuentra clave privada para validar la operación.", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -697,6 +763,7 @@ public class OperacionesFragment extends Fragment {
                                         });
                                     }
                                 }
+
                                 @Override
                                 public void onOperacionFallo(String error) {
                                     FragmentActivity act = getActivity();
@@ -724,8 +791,14 @@ public class OperacionesFragment extends Fragment {
             }).start();
         });
 
-        btnResolveDisputeListMenu.setOnClickListener(v -> { hideKeyboard(); loadAndRenderDisputes(null); });
-        btnResolveListBack.setOnClickListener(v -> { hideKeyboard(); showView(layoutDisputeMenu); });
+        btnResolveDisputeListMenu.setOnClickListener(v -> {
+            hideKeyboard();
+            loadAndRenderDisputes(null);
+        });
+        btnResolveListBack.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutDisputeMenu);
+        });
 
         btnGoToResolveForm.setOnClickListener(v -> {
             btnGoToResolveForm.setVisibility(View.GONE);
@@ -763,6 +836,7 @@ public class OperacionesFragment extends Fragment {
                                     });
                                 }
                             }
+
                             @Override
                             public void onOperacionFallo(String error) {
                                 FragmentActivity activity = getActivity();
@@ -776,13 +850,16 @@ public class OperacionesFragment extends Fragment {
                     .show();
         });
 
-        btnResolveActionBack.setOnClickListener(v -> { hideKeyboard(); showView(layoutResolveList); });
+        btnResolveActionBack.setOnClickListener(v -> {
+            hideKeyboard();
+            showView(layoutResolveList);
+        });
 
         btnResolveFinalBack.setOnClickListener(v -> {
             hideKeyboard();
             layoutFinalResolveForm.setVisibility(View.GONE);
             containerDisputeHistory.setVisibility(View.VISIBLE);
-            if(scrollDisputeHistory != null) scrollDisputeHistory.setVisibility(View.VISIBLE);
+            if (scrollDisputeHistory != null) scrollDisputeHistory.setVisibility(View.VISIBLE);
             btnGoToResolveForm.setVisibility(View.VISIBLE);
 
             if (!currentUserEmail.equalsIgnoreCase(PLATFORM_EMAIL)) {
@@ -797,7 +874,7 @@ public class OperacionesFragment extends Fragment {
             String decision = spinnerResolveDecision.getSelectedItem().toString();
             boolean refundBuyer = decision.contains("Comprador");
 
-            if(!pk.isEmpty() && !id.isEmpty() && currentUserEmail.equalsIgnoreCase(PLATFORM_EMAIL)) {
+            if (!pk.isEmpty() && !id.isEmpty() && currentUserEmail.equalsIgnoreCase(PLATFORM_EMAIL)) {
                 performResolveDispute(pk, new BigInteger(id), refundBuyer, decision);
             } else {
                 Toast.makeText(mContext, "Acceso denegado: Solo la Plataforma puede resolver.", Toast.LENGTH_LONG).show();
@@ -1016,7 +1093,7 @@ public class OperacionesFragment extends Fragment {
         btnRequestPlatformReview.setVisibility(View.GONE);
         btnResolveActionBack.setVisibility(View.VISIBLE);
         layoutFinalResolveForm.setVisibility(View.GONE);
-        if(scrollDisputeHistory != null) scrollDisputeHistory.setVisibility(View.VISIBLE);
+        if (scrollDisputeHistory != null) scrollDisputeHistory.setVisibility(View.VISIBLE);
         inputResolveId.setText(escrowId);
 
         List<Map<String, String>> entries = groupedDisputes.get(escrowId);
@@ -1075,7 +1152,7 @@ public class OperacionesFragment extends Fragment {
                 resView.setText("RESOLUCIÓN FINAL: " + finalDecision);
                 resView.setBackgroundColor(Color.BLACK);
                 resView.setTextColor(Color.WHITE);
-                resView.setPadding(30,30,30,30);
+                resView.setPadding(30, 30, 30, 30);
                 resView.setGravity(android.view.Gravity.CENTER);
 
                 LinearLayout.LayoutParams resParams = new LinearLayout.LayoutParams(
@@ -1086,13 +1163,12 @@ public class OperacionesFragment extends Fragment {
                 resView.setLayoutParams(resParams);
 
                 containerDisputeHistory.addView(resView);
-            }
-            else if (isUnderReview) {
+            } else if (isUnderReview) {
                 TextView revView = new TextView(mContext);
                 revView.setText("En revisión...");
                 revView.setBackgroundColor(Color.parseColor("#FF9800"));
                 revView.setTextColor(Color.WHITE);
-                revView.setPadding(30,30,30,30);
+                revView.setPadding(30, 30, 30, 30);
                 revView.setGravity(android.view.Gravity.CENTER);
 
                 LinearLayout.LayoutParams revParams = new LinearLayout.LayoutParams(
@@ -1108,7 +1184,7 @@ public class OperacionesFragment extends Fragment {
             }
         }
 
-        if(scrollDisputeHistory != null) {
+        if (scrollDisputeHistory != null) {
             scrollDisputeHistory.post(() -> scrollDisputeHistory.fullScroll(View.FOCUS_DOWN));
         }
 
@@ -1163,13 +1239,29 @@ public class OperacionesFragment extends Fragment {
         }).start();
     }
 
-    private void hideKeyboard() { if (getActivity() != null) { View v = getActivity().getCurrentFocus(); if (v != null) { InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); imm.hideSoftInputFromWindow(v.getWindowToken(), 0); } } }
+    private void hideKeyboard() {
+        if (getActivity() != null) {
+            View v = getActivity().getCurrentFocus();
+            if (v != null) {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        }
+    }
 
     private void showView(View view) {
-        layoutMainMenu.setVisibility(View.GONE); layoutBuyerMenu.setVisibility(View.GONE); layoutSellerMenu.setVisibility(View.GONE); layoutDisputeMenu.setVisibility(View.GONE);
-        layoutFormsContainer.setVisibility(View.GONE); layoutExistingEscrowBuyer.setVisibility(View.GONE); layoutOpenDisputeForm.setVisibility(View.GONE);
-        layoutResolveList.setVisibility(View.GONE); layoutResolveAction.setVisibility(View.GONE);
-        layoutCreateEscrow.setVisibility(View.GONE); layoutFundEscrow.setVisibility(View.GONE); layoutBuyerApprove.setVisibility(View.GONE);
+        layoutMainMenu.setVisibility(View.GONE);
+        layoutBuyerMenu.setVisibility(View.GONE);
+        layoutSellerMenu.setVisibility(View.GONE);
+        layoutDisputeMenu.setVisibility(View.GONE);
+        layoutFormsContainer.setVisibility(View.GONE);
+        layoutExistingEscrowBuyer.setVisibility(View.GONE);
+        layoutOpenDisputeForm.setVisibility(View.GONE);
+        layoutResolveList.setVisibility(View.GONE);
+        layoutResolveAction.setVisibility(View.GONE);
+        layoutCreateEscrow.setVisibility(View.GONE);
+        layoutFundEscrow.setVisibility(View.GONE);
+        layoutBuyerApprove.setVisibility(View.GONE);
         if (view != null) view.setVisibility(View.VISIBLE);
     }
 
@@ -1177,7 +1269,8 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de ejecutar la resolución final de una disputa en la Blockchain (solo Admin)
     private void performResolveDispute(String pk, BigInteger id, boolean refundBuyer, String decisionText) {
-        tvResultadoLog.setText("Resolviendo..."); btnExecuteResolve.setEnabled(false);
+        tvResultadoLog.setText("Resolviendo...");
+        btnExecuteResolve.setEnabled(false);
         String decisionFinal = refundBuyer ? "COMPRADOR" : "VENDEDOR";
 
         new Thread(() -> {
@@ -1197,6 +1290,7 @@ public class OperacionesFragment extends Fragment {
                             });
                         }
                     }
+
                     @Override
                     public void onOperacionFallo(String error) {
                         FragmentActivity activity = getActivity();
@@ -1222,7 +1316,8 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de interactuar con el contrato inteligente para crear un nuevo depósito de garantía
     private void performCreateEscrow(String pk, String seller) {
-        tvResultadoLog.setText("Creando..."); btnEnviarEscrow.setEnabled(false);
+        tvResultadoLog.setText("Creando...");
+        btnEnviarEscrow.setEnabled(false);
         new Thread(() -> {
             try {
                 FairPayService service = new FairPayService(pk);
@@ -1241,27 +1336,39 @@ public class OperacionesFragment extends Fragment {
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnEnviarEscrow.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnEnviarEscrow.setEnabled(true);
+                    });
                 }
             }
         }).start();
     }
 
     private void startCountdownTimer() {
-        btnSearchId.setVisibility(View.VISIBLE); btnSearchId.setEnabled(false);
+        btnSearchId.setVisibility(View.VISIBLE);
+        btnSearchId.setEnabled(false);
         new CountDownTimer(15000, 1000) {
-            public void onTick(long m) { btnSearchId.setText("Procesando... " + m/1000); }
-            public void onFinish() { btnSearchId.setText(SEARCH_BUTTON_ORIGINAL_TEXT); btnSearchId.setEnabled(true); }
+            public void onTick(long m) {
+                btnSearchId.setText("Procesando... " + m / 1000);
+            }
+
+            public void onFinish() {
+                btnSearchId.setText(SEARCH_BUTTON_ORIGINAL_TEXT);
+                btnSearchId.setEnabled(true);
+            }
         }.start();
     }
 
     // Esta función se encarga de sondear la Blockchain hasta encontrar el ID del depósito recién creado
     private void performSearchEscrowId(String hash) {
-        tvResultadoLog.setText("Buscando ID..."); btnSearchId.setEnabled(false);
+        tvResultadoLog.setText("Buscando ID...");
+        btnSearchId.setEnabled(false);
         new Thread(() -> {
             try {
                 String pk = inputPrivateKey.getText().toString();
-                if(pk.isEmpty()) pk = "0x0000000000000000000000000000000000000000000000000000000000000001";
+                if (pk.isEmpty())
+                    pk = "0x0000000000000000000000000000000000000000000000000000000000000001";
                 FairPayService service = new FairPayService(pk);
                 BigInteger id = service.waitForEscrowId(hash);
                 lastEscrowId = id;
@@ -1281,7 +1388,10 @@ public class OperacionesFragment extends Fragment {
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnSearchId.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnSearchId.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1289,7 +1399,8 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de enviar los fondos (ETH) al contrato inteligente para asegurar el depósito
     private void performFundEscrow(String pk, BigInteger id, BigInteger amountWei) {
-        tvResultadoLog.setText("Enviando pago..."); btnFundEscrow.setEnabled(false);
+        tvResultadoLog.setText("Enviando pago...");
+        btnFundEscrow.setEnabled(false);
         new Thread(() -> {
             try {
                 FairPayService service = new FairPayService(pk);
@@ -1299,7 +1410,10 @@ public class OperacionesFragment extends Fragment {
                     activity.runOnUiThread(() -> {
                         tvResultadoLog.setText("Pago enviado. Confirmando...");
                         new CountDownTimer(19000, 1000) {
-                            public void onTick(long m) { btnFundEscrow.setText("Procesando... " + m/1000); }
+                            public void onTick(long m) {
+                                btnFundEscrow.setText("Procesando... " + m / 1000);
+                            }
+
                             public void onFinish() {
                                 String msg = "Pago confirmado. Pendiente aprobar.";
                                 btnFundEscrow.setText("Hacer pago");
@@ -1316,7 +1430,10 @@ public class OperacionesFragment extends Fragment {
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnFundEscrow.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnFundEscrow.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1339,11 +1456,14 @@ public class OperacionesFragment extends Fragment {
                             saveOperationState(STATE_WAITING_VERIFY, hash, id.toString(), "Aprobación enviada. Pendiente verificación.");
                         }
                         new CountDownTimer(19000, 1000) {
-                            public void onTick(long m) { btn.setText("Procesando... " + m/1000); }
+                            public void onTick(long m) {
+                                btn.setText("Procesando... " + m / 1000);
+                            }
+
                             public void onFinish() {
                                 btn.setText(rol.equals("VENDEDOR") ? "Recibir pago" : "Comprobar");
                                 btn.setEnabled(true);
-                                if(rol.equals("VENDEDOR")) tvResultadoLog.setText("FINALIZADO.");
+                                if (rol.equals("VENDEDOR")) tvResultadoLog.setText("FINALIZADO.");
                             }
                         }.start();
                     });
@@ -1351,7 +1471,10 @@ public class OperacionesFragment extends Fragment {
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btn.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btn.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1364,7 +1487,8 @@ public class OperacionesFragment extends Fragment {
             return;
         }
 
-        tvResultadoLog.setText("Verificando..."); btnBuyerApprove.setEnabled(false);
+        tvResultadoLog.setText("Verificando...");
+        btnBuyerApprove.setEnabled(false);
         new Thread(() -> {
             try {
                 FairPayService service = new FairPayService(pk);
@@ -1379,14 +1503,18 @@ public class OperacionesFragment extends Fragment {
                             tvResultadoLog.setVisibility(View.VISIBLE);
                             tvResultadoLog.setText("FINALIZADO: Depósito completado.");
                             clearOperationState();
+                        } else {
+                            tvResultadoLog.setText("Aún no confirmado.");
                         }
-                        else { tvResultadoLog.setText("Aún no confirmado."); }
                     });
                 }
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnBuyerApprove.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnBuyerApprove.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1416,21 +1544,40 @@ public class OperacionesFragment extends Fragment {
                             btnRealizarOperacion.setText("Cerrar operaciones");
                         }
 
-                        if (isFunded && approvals.compareTo(BigInteger.ZERO) > 0) { showView(null); tvResultadoLog.setVisibility(View.VISIBLE); tvResultadoLog.setText("Estado finalizado:\n\nSu depósito ya fue creado, pagado y aprobado."); return; }
-                        showView(layoutFormsContainer); layoutExistingEscrowBuyer.setVisibility(View.GONE); layoutCreateEscrow.setVisibility(View.GONE);
+                        if (isFunded && approvals.compareTo(BigInteger.ZERO) > 0) {
+                            showView(null);
+                            tvResultadoLog.setVisibility(View.VISIBLE);
+                            tvResultadoLog.setText("Estado finalizado:\n\nSu depósito ya fue creado, pagado y aprobado.");
+                            return;
+                        }
+                        showView(layoutFormsContainer);
+                        layoutExistingEscrowBuyer.setVisibility(View.GONE);
+                        layoutCreateEscrow.setVisibility(View.GONE);
                         if (!isFunded && amount.equals(BigInteger.ZERO)) {
                             tvResultadoLog.setText(Html.fromHtml("Estado: Creado pero no pagado.<br><br><i>Para continuar:</i> Introduce tu clave privada y pulsa <b>Hacer pago</b>."));
-                            layoutFundEscrow.setVisibility(View.VISIBLE); inputEscrowId.setText(idStr); btnFundEscrow.setVisibility(View.VISIBLE); btnFundEscrow.setEnabled(true);
+                            layoutFundEscrow.setVisibility(View.VISIBLE);
+                            inputEscrowId.setText(idStr);
+                            btnFundEscrow.setVisibility(View.VISIBLE);
+                            btnFundEscrow.setEnabled(true);
                         } else if (isFunded && approvals.equals(BigInteger.ZERO)) {
                             tvResultadoLog.setText(Html.fromHtml("Estado: Pagado. Pendiente de aprobación.<br><br><i>Para continuar:</i> Introduce tu clave privada y pulsa <b>Aprobar recepción</b>."));
-                            layoutBuyerApprove.setVisibility(View.VISIBLE); btnBuyerApprove.setVisibility(View.VISIBLE); btnBuyerApprove.setEnabled(true); btnBuyerApprove.setText("Aprobar recepción");
-                        } else { tvResultadoLog.setText("Estado: Desconocido o ID inválido."); showView(layoutMainMenu); }
+                            layoutBuyerApprove.setVisibility(View.VISIBLE);
+                            btnBuyerApprove.setVisibility(View.VISIBLE);
+                            btnBuyerApprove.setEnabled(true);
+                            btnBuyerApprove.setText("Aprobar recepción");
+                        } else {
+                            tvResultadoLog.setText("Estado: Desconocido o ID inválido.");
+                            showView(layoutMainMenu);
+                        }
                     });
                 }
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnCheckEscrowStatus.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnCheckEscrowStatus.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1438,7 +1585,8 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de consultar si un vendedor tiene un pago pendiente
     private void performSellerCheckOnly(String pk, BigInteger id) {
-        tvResultadoLog.setText("Consultando..."); btnSellerCheckStatus.setEnabled(false);
+        tvResultadoLog.setText("Consultando...");
+        btnSellerCheckStatus.setEnabled(false);
         new Thread(() -> {
             try {
                 FairPayService service = new FairPayService(pk.isEmpty() ? "0x0000000000000000000000000000000000000000000000000000000000000001" : pk);
@@ -1449,7 +1597,8 @@ public class OperacionesFragment extends Fragment {
                 if (activity != null) {
                     activity.runOnUiThread(() -> {
                         btnSellerCheckStatus.setEnabled(true);
-                        if (isFunded && approvals.equals(BigInteger.ONE)) tvResultadoLog.setText("Listo para recibir pago.");
+                        if (isFunded && approvals.equals(BigInteger.ONE))
+                            tvResultadoLog.setText("Listo para recibir pago.");
                         else if (!isFunded) tvResultadoLog.setText("No pagado aún.");
                         else tvResultadoLog.setText("Pagado, esperando aprobación.");
                     });
@@ -1457,7 +1606,10 @@ public class OperacionesFragment extends Fragment {
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnSellerCheckStatus.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnSellerCheckStatus.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1477,17 +1629,22 @@ public class OperacionesFragment extends Fragment {
                 if (activity != null) {
                     activity.runOnUiThread(() -> {
                         if (isFunded && approvals.equals(BigInteger.ONE)) {
-                            tvResultadoLog.setText("Reclamando..."); btnSellerReceivePayment.setEnabled(true);
+                            tvResultadoLog.setText("Reclamando...");
+                            btnSellerReceivePayment.setEnabled(true);
                             performApprove(id, pk, "VENDEDOR");
                         } else {
-                            tvResultadoLog.setText("No puedes reclamar aún."); btnSellerReceivePayment.setEnabled(true);
+                            tvResultadoLog.setText("No puedes reclamar aún.");
+                            btnSellerReceivePayment.setEnabled(true);
                         }
                     });
                 }
             } catch (Exception e) {
                 FragmentActivity activity = getActivity();
                 if (activity != null) {
-                    activity.runOnUiThread(() -> { tvResultadoLog.setText("Error: " + e.getMessage()); btnSellerReceivePayment.setEnabled(true); });
+                    activity.runOnUiThread(() -> {
+                        tvResultadoLog.setText("Error: " + e.getMessage());
+                        btnSellerReceivePayment.setEnabled(true);
+                    });
                 }
             }
         }).start();
@@ -1520,26 +1677,38 @@ public class OperacionesFragment extends Fragment {
             arrowPath.reset();
             float halfW = triangleSize / 2f;
             float halfH = triangleSize / 2f;
-            arrowPath.moveTo(cx - halfW, cy - halfH/2);
-            arrowPath.lineTo(cx + halfW, cy - halfH/2);
+            arrowPath.moveTo(cx - halfW, cy - halfH / 2);
+            arrowPath.lineTo(cx + halfW, cy - halfH / 2);
             arrowPath.lineTo(cx, cy + halfH);
             arrowPath.close();
             canvas.drawPath(arrowPath, arrowPaint);
         }
 
         @Override
-        public void setAlpha(int alpha) { circlePaint.setAlpha(alpha); arrowPaint.setAlpha(alpha); }
+        public void setAlpha(int alpha) {
+            circlePaint.setAlpha(alpha);
+            arrowPaint.setAlpha(alpha);
+        }
 
         @Override
-        public void setColorFilter(@Nullable ColorFilter colorFilter) { circlePaint.setColorFilter(colorFilter); arrowPaint.setColorFilter(colorFilter); }
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            circlePaint.setColorFilter(colorFilter);
+            arrowPaint.setColorFilter(colorFilter);
+        }
 
         @Override
-        public int getOpacity() { return PixelFormat.TRANSLUCENT; }
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+        }
 
         @Override
-        public int getIntrinsicWidth() { return size; }
+        public int getIntrinsicWidth() {
+            return size;
+        }
 
         @Override
-        public int getIntrinsicHeight() { return size; }
+        public int getIntrinsicHeight() {
+            return size;
+        }
     }
 }
