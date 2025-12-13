@@ -7,7 +7,7 @@
     android:padding="20dp"
     android:background="#C9C5E3">
 
-    <!-- CABECERA: Estilo Movimientos/Agenda (Negro y Centrado) -->
+    <!-- CABECERA -->
     <TextView
         android:id="@+id/text_titulo_Operaciones"
         android:layout_width="match_parent"
@@ -22,52 +22,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botón Toggle Principal -->
-    <Button
-        android:id="@+id/button_realizar_operacion"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:text="Iniciar operaciones"
-        android:textAllCaps="false"
-        android:backgroundTint="#6554D1"
-        android:textColor="@android:color/white"
-        app:cornerRadius="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/text_titulo_Operaciones"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- CAJA DE LOG -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_result_log"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="#C9C5E3"
-        app:cardElevation="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/button_realizar_operacion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/tv_resultado_log"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text=""
-            android:textColor="#333333"
-            android:textSize="16sp" />
-    </androidx.cardview.widget.CardView>
-
-    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- CONTENEDOR SCROLL PRINCIPAL -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/card_result_log"
+        app:layout_constraintTop_toBottomOf="@+id/text_titulo_Operaciones"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -76,13 +36,49 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-            <!-- MENÚ PRINCIPAL (Roles) -->
+            <!-- Botón 1: Iniciar Operaciones -->
+            <Button
+                android:id="@+id/button_realizar_operacion"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:text="Iniciar operaciones"
+                android:textAllCaps="false"
+                android:backgroundTint="#6554D1"
+                android:textColor="@android:color/white"
+                app:cornerRadius="18dp"/>
+
+            <!-- CAJA DE LOG PRINCIPAL (Para mensajes del Hub) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_result_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="#C9C5E3"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tv_resultado_log"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text=""
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- MENÚ SELECCIÓN ROL (Se muestra al pulsar Iniciar) -->
             <LinearLayout
                 android:id="@+id/layout_main_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="gone"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,7 +89,6 @@
                     android:layout_gravity="center"
                     android:textColor="#333333" />
 
-                <!-- BOTÓN COMPRADOR (Menta / Verde Oscuro) -->
                 <Button
                     android:id="@+id/btn_select_buyer"
                     android:layout_width="match_parent"
@@ -106,7 +101,6 @@
                     android:elevation="4dp"
                     android:layout_marginBottom="10dp" />
 
-                <!-- BOTÓN VENDEDOR (Rosa / Burdeos) -->
                 <Button
                     android:id="@+id/btn_select_seller"
                     android:layout_width="match_parent"
@@ -118,618 +112,110 @@
                     app:cornerRadius="20dp"
                     android:elevation="4dp"
                     android:layout_marginBottom="10dp" />
-
-                <!-- BOTÓN DISPUTA (Cielo / Marino) -->
-                <Button
-                    android:id="@+id/btn_select_dispute"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="Crear disputa"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#AEDDFF"
-                    android:textColor="#103044"
-                    app:cornerRadius="20dp"
-                    android:elevation="4dp" />
             </LinearLayout>
 
-            <!-- ==============================
-                 TEMA DISPUTA (Azul Cielo / Marino)
-                 ============================== -->
-            <LinearLayout
-                android:id="@+id/layout_dispute_menu"
+            <!-- Botón 2: Operaciones Pendientes -->
+            <Button
+                android:id="@+id/btn_pending_ops"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:padding="15dp"
-                android:background="#AEDDFF">
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:text="Operaciones pendientes"
+                android:textAllCaps="false"
+                android:backgroundTint="#8173E6"
+                android:textColor="@android:color/white"
+                app:cornerRadius="18dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gestión de disputas"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    android:textColor="#103044" />
-
-                <Button
-                    android:id="@+id/btn_open_dispute_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Abrir disputa"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:backgroundTint="#103044"
-                    app:cornerRadius="8dp"
-                    android:layout_marginBottom="10dp" />
-
-                <Button
-                    android:id="@+id/btn_resolve_dispute_list_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Resolver disputa"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:backgroundTint="#103044"
-                    app:cornerRadius="8dp"
-                    android:layout_marginBottom="10dp" />
-
-                <Button
-                    android:id="@+id/btn_dispute_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#4D5059"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"/>
-            </LinearLayout>
-
-            <!-- FORMULARIO ABRIR DISPUTA (Tema Azul) -->
+            <!-- Contenedor Sub-categorías Pendientes -->
             <LinearLayout
-                android:id="@+id/layout_open_dispute_form"
+                android:id="@+id/layout_pending_subcategories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:padding="10dp"
-                android:background="#AEDDFF">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Abrir nueva disputa"
-                    android:textStyle="bold"
-                    android:textColor="#103044"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="¿Quién eres?"
-                    android:textColor="#103044"/>
-
-                <!-- SPINNER SIN FONDO ESTATICO (Gestionado por Java) -->
-                <Spinner
-                    android:id="@+id/spinner_dispute_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:minHeight="48dp" />
-
-                <EditText
-                    android:id="@+id/input_dispute_escrow_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="ID del depósito"
-                    android:textColorHint="#4D5059"
-                    android:inputType="number"
-                    android:textColor="#103044"
-                    android:padding="12dp"
-                    android:background="#FFFFFF"
-                    android:layout_marginTop="10dp"/>
-
-                <EditText
-                    android:id="@+id/input_dispute_reason"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Explicación de la disputa..."
-                    android:textColorHint="#4D5059"
-                    android:inputType="textMultiLine"
-                    android:textColor="#103044"
-                    android:minLines="3"
-                    android:padding="12dp"
-                    android:background="#FFFFFF"
-                    android:layout_marginTop="10dp"/>
+                android:layout_marginBottom="5dp">
 
                 <Button
-                    android:id="@+id/btn_submit_dispute"
+                    android:id="@+id/btn_cat_created"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Enviar"
+                    android:layout_height="50dp"
+                    android:text="Depósitos creados"
                     android:textAllCaps="false"
-                    android:backgroundTint="#103044"
+                    android:backgroundTint="#9575CD"
                     android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
+                    app:cornerRadius="12dp"
+                    android:layout_marginBottom="5dp"/>
 
                 <Button
-                    android:id="@+id/btn_open_dispute_back"
+                    android:id="@+id/btn_cat_funded"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
+                    android:layout_height="50dp"
+                    android:text="Depósitos pagados"
                     android:textAllCaps="false"
-                    android:backgroundTint="#4D5059"
+                    android:backgroundTint="#7E57C2"
                     android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
+                    app:cornerRadius="12dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <Button
+                    android:id="@+id/btn_cat_approved"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Depósitos aprobados"
+                    android:textAllCaps="false"
+                    android:backgroundTint="#673AB7"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="12dp"
+                    android:layout_marginBottom="5dp"/>
             </LinearLayout>
 
-            <!-- LISTA DISPUTAS -->
-            <LinearLayout
-                android:id="@+id/layout_resolve_list"
+            <ScrollView
+                android:id="@+id/scroll_pending_results"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Disputas"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:paddingBottom="15dp"
-                    android:textColor="@android:color/black" />
-
-                <LinearLayout
-                    android:id="@+id/container_disputes_buttons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
-
-                <!-- NUEVO BOTÓN VOLVER -->
-                <Button
-                    android:id="@+id/btn_resolve_list_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#4D5059"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <!-- ACCIÓN RESOLVER (Tema Azul) -->
-            <LinearLayout
-                android:id="@+id/layout_resolve_action"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="180dp"
                 android:visibility="gone"
+                android:background="#C9C5E3"
                 android:padding="10dp"
-                android:background="#AEDDFF">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Detalle de disputa"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    android:textColor="#103044" />
-
-                <!-- SWIPE REFRESH LAYOUT: Envolviendo al ScrollView -->
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/swipe_refresh_dispute"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginBottom="10dp">
-
-                    <ScrollView
-                        android:id="@+id/scroll_dispute_history"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFFFFF">
-                        <LinearLayout
-                            android:id="@+id/container_dispute_history"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-                            <!-- Aquí se inyectarán los mensajes -->
-                        </LinearLayout>
-                    </ScrollView>
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-                <Button
-                    android:id="@+id/btn_goto_resolve_form"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Resolver disputa"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#103044"
-                    app:cornerRadius="8dp"
-                    android:textColor="@android:color/white"/>
-
-                <!-- NUEVO BOTÓN: SOLICITAR REVISIÓN FAIRPAY -->
-                <Button
-                    android:id="@+id/btn_request_platform_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Solicitar revisión FairPay"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#FF9800"
-                    app:cornerRadius="8dp"
-                    android:textColor="@android:color/white"
-                    android:visibility="gone"/>
-
-                <!-- NUEVO BOTÓN RESPONDER -->
-                <Button
-                    android:id="@+id/btn_reply_dispute"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Responder / Añadir comentario"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#103044"
-                    app:cornerRadius="8dp"
-                    android:textColor="@android:color/white"
-                    android:visibility="visible"/>
-
-                <!-- NUEVO BOTÓN VOLVER (En Detalles de Disputa) -->
-                <Button
-                    android:id="@+id/btn_resolve_action_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
-                    android:textAllCaps="false"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="#4D5059"
-                    app:cornerRadius="8dp"
-                    android:textColor="@android:color/white"/>
+                android:layout_marginBottom="10dp">
 
                 <LinearLayout
-                    android:id="@+id/layout_final_resolve_form"
+                    android:id="@+id/layout_pending_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:layout_marginTop="10dp">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ID depósito:"
-                        android:textColor="#103044"/>
-
-                    <EditText
-                        android:id="@+id/input_resolve_id"
+                        android:id="@+id/tv_pending_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:textColor="#103044"
-                        android:background="#FFFFFF"/>
-
-                    <EditText
-                        android:id="@+id/input_platform_key"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Clave privada FairPay (0x...)"
-                        android:textColorHint="#4D5059"
-                        android:inputType="textPassword"
-                        android:textColor="#103044"
-                        android:layout_marginTop="10dp"
-                        android:padding="10dp"
-                        android:background="#FFFFFF"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Decisión (RefundBuyer):"
-                        android:textColor="#103044"/>
-
-                    <Spinner
-                        android:id="@+id/spinner_resolve_decision"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        android:layout_marginTop="10dp"
-                        />
-
-                    <Button
-                        android:id="@+id/btn_execute_resolve"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ejecutar resolución"
-                        android:textAllCaps="false"
-                        android:backgroundTint="#103044"
-                        android:textColor="#FFFFFF"
-                        app:cornerRadius="8dp"
-                        android:layout_marginTop="10dp"/>
-
-                    <Button
-                        android:id="@+id/btn_resolve_final_back"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Volver"
-                        android:textAllCaps="false"
-                        android:backgroundTint="#4D5059"
-                        android:textColor="#FFFFFF"
-                        app:cornerRadius="8dp"
-                        android:layout_marginTop="10dp"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- ==============================
-                 TEMA COMPRADOR (Menta / Verde Oscuro)
-                 ============================== -->
-            <LinearLayout
-                android:id="@+id/layout_buyer_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:background="#B8E4C9"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Acciones de comprador"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    android:textColor="#1D3B2F" />
-
-                <Button
-                    android:id="@+id/btn_buyer_new"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Realizar nuevo depósito"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#1D3B2F"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp" />
-
-                <Button
-                    android:id="@+id/btn_buyer_existing"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Recuperar depósito"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#1D3B2F"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-
-                <Button
-                    android:id="@+id/btn_buyer_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#4D5059"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <!-- ==============================
-                 TEMA VENDEDOR (Rosa / Burdeos)
-                 ============================== -->
-            <LinearLayout
-                android:id="@+id/layout_seller_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:background="#F7C6DA"
-                android:padding="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Acciones de vendedor"
-                    android:textStyle="bold"
-                    android:paddingBottom="10dp"
-                    android:textColor="#3F1F2A" />
-
-                <EditText
-                    android:id="@+id/input_seller_private_key"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Clave privada vendedor (0x...)"
-                    android:textColorHint="#4D5059"
-                    android:inputType="textPassword"
-                    android:textColor="#3F1F2A"
-                    android:background="#FFFFFF"
-                    android:padding="10dp"/>
-
-                <EditText
-                    android:id="@+id/input_seller_escrow_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="ID del depósito"
-                    android:textColorHint="#4D5059"
-                    android:inputType="number"
-                    android:textColor="#3F1F2A"
-                    android:layout_marginTop="10dp"
-                    android:background="#FFFFFF"
-                    android:padding="10dp"/>
-
-                <Button
-                    android:id="@+id/btn_seller_check_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Estado pago"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#3F1F2A"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-
-                <Button
-                    android:id="@+id/btn_seller_receive"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Recibir pago"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#3F1F2A"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-
-                <Button
-                    android:id="@+id/btn_seller_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#4D5059"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <!-- FORMULARIOS COMPRADOR (Containers) - TEMA COMPRADOR -->
-            <LinearLayout
-                android:id="@+id/layout_forms_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:background="#B8E4C9"
-                android:padding="10dp">
-
-                <!-- CREATE ESCROW -->
-                <LinearLayout
-                    android:id="@+id/layout_create_escrow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-                    <EditText android:id="@+id/input_private_key" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Tu clave privada" android:textColorHint="#4D5059" android:background="#FFFFFF" android:inputType="textPassword" android:textColor="#1D3B2F" android:padding="10dp"/>
-                    <EditText android:id="@+id/input_seller" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Dirección del vendedor" android:textColorHint="#4D5059" android:background="#FFFFFF" android:textColor="#1D3B2F" android:padding="10dp" android:layout_marginTop="10dp"/>
-                    <Button android:id="@+id/button_enviar_create_escrow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Crear depósito" android:textAllCaps="false" android:backgroundTint="#1D3B2F" android:textColor="#FFFFFF" app:cornerRadius="8dp" android:layout_marginTop="10dp"/>
-                    <Button android:id="@+id/button_search_id" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Buscar ID confirmado" android:textAllCaps="false" android:backgroundTint="#1D3B2F" android:textColor="#FFFFFF" app:cornerRadius="8dp" android:visibility="gone" android:layout_marginTop="10dp"/>
-                </LinearLayout>
-
-                <!-- FUND ESCROW (3 CAJAS) -->
-                <LinearLayout
-                    android:id="@+id/layout_fund_escrow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <EditText
-                        android:id="@+id/input_escrow_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Id depósito"
-                        android:textColorHint="#4D5059"
-                        android:background="#FFFFFF"
-                        android:enabled="false"
-                        android:textColor="#1D3B2F"
+                        android:text="Selecciona una categoría arriba."
+                        android:textColor="@android:color/black"
+                        android:gravity="center"
                         android:padding="10dp"/>
-
-                    <EditText
-                        android:id="@+id/input_private_key_fund"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Tu clave privada"
-                        android:textColorHint="#4D5059"
-                        android:background="#FFFFFF"
-                        android:inputType="textPassword"
-                        android:textColor="#1D3B2F"
-                        android:padding="10dp"
-                        android:layout_marginTop="10dp"/>
-
-                    <EditText
-                        android:id="@+id/input_fund_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Cantidad (ETH)"
-                        android:textColorHint="#4D5059"
-                        android:background="#FFFFFF"
-                        android:inputType="numberDecimal"
-                        android:textColor="#1D3B2F"
-                        android:padding="10dp"
-                        android:layout_marginTop="10dp"/>
-
-                    <Button
-                        android:id="@+id/button_fund_escrow"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Hacer pago"
-                        android:textAllCaps="false"
-                        android:backgroundTint="#1D3B2F"
-                        android:textColor="#FFFFFF"
-                        app:cornerRadius="8dp"
-                        android:layout_marginTop="10dp"/>
                 </LinearLayout>
+            </ScrollView>
 
-                <!-- APPROVE -->
-                <LinearLayout
-                    android:id="@+id/layout_buyer_approve"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-                    <Button android:id="@+id/button_buyer_approve" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Aprobar recepción" android:textAllCaps="false" android:backgroundTint="#1D3B2F" android:textColor="#FFFFFF" app:cornerRadius="8dp" />
-                </LinearLayout>
-
-                <Button android:id="@+id/btn_form_back_buyer" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Volver" android:textAllCaps="false" android:backgroundTint="#4D5059" android:textColor="#FFFFFF" app:cornerRadius="8dp" android:layout_marginTop="20dp"/>
-            </LinearLayout>
-
-            <!-- EXISTING ESCROW BUYER - TEMA COMPRADOR -->
-            <LinearLayout
-                android:id="@+id/layout_existing_escrow_buyer"
+            <!-- Botón 3: DISPUTAS -->
+            <Button
+                android:id="@+id/btn_main_disputes"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:background="#B8E4C9"
-                android:padding="10dp">
+                android:layout_height="60dp"
+                android:layout_marginBottom="10dp"
+                android:text="Disputas"
+                android:textAllCaps="false"
+                android:backgroundTint="#9C91EB"
+                android:textColor="@android:color/white"
+                app:cornerRadius="18dp"/>
 
-                <EditText
-                    android:id="@+id/input_existing_escrow_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="ID del depósito"
-                    android:textColorHint="#4D5059"
-                    android:background="#FFFFFF"
-                    android:inputType="number"
-                    android:textColor="#1D3B2F"
-                    android:padding="10dp"
-                    android:layout_marginBottom="10dp"/>
-
-                <Button
-                    android:id="@+id/btn_check_escrow_status"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Consultar y continuar"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#1D3B2F"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-
-                <Button
-                    android:id="@+id/btn_existing_back_buyer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Volver"
-                    android:textAllCaps="false"
-                    android:backgroundTint="#4D5059"
-                    android:textColor="#FFFFFF"
-                    app:cornerRadius="8dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
+            <!-- CONTENEDOR PARA FRAGMENTOS HIJOS (Aquí se cargan Comprador/Vendedor/Disputas) -->
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

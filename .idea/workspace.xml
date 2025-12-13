@@ -20,7 +20,17 @@
           <theme>@style/Theme.FairPay</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_comprador.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_contacto.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_disputas.xml">
         <config>
           <theme>@style/Theme.FairPay</theme>
         </config>
@@ -31,6 +41,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml">
+        <config>
+          <theme>@style/Theme.FairPay</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_vendedor.xml">
         <config>
           <theme>@style/Theme.FairPay</theme>
         </config>
@@ -47,38 +62,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1c1d17b-7a2e-4235-a310-22c70e977e49" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/drawable/logo_ethereum.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/CompradorFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/DisputasFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/VendedorFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_comprador.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_disputas.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_vendedor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/RegistroActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/activities/RegistroActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/AgendaFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/AgendaFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/ContactoFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/ContactoFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/MovimientosFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/MovimientosFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/OperacionesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/OperacionesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/PerfilFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/PerfilFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/WalletFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/fragments/WalletFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_contacto.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_contacto.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_movimientos.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_movimientos.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/OperacionesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/OperacionesFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_wallet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_wallet.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Java/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/gradle/libs.versions.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Java/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/Java/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Java/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +83,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=O1E1XT232305219)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=O1E1XT232304883), DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=O1E1XT232305219)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Java">
       <ProjectState />
@@ -105,6 +100,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -179,7 +181,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "Operaciones__FP__Jose",
+    "git-widget-placeholder": "cuatroClasesFP__Jose",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.12376237",
@@ -276,12 +278,12 @@
       <map>
         <entry key="es.ifp.fairpay">
           <value>
-            <CheckInfo lastCheckTimestamp="1765390899839" />
+            <CheckInfo lastCheckTimestamp="1765568811750" />
           </value>
         </entry>
         <entry key="es.ifp.fairpay.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1765390899839" />
+            <CheckInfo lastCheckTimestamp="1765568811737" />
           </value>
         </entry>
       </map>
