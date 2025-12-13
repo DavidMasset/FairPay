@@ -282,17 +282,10 @@ public class OperacionesFragment extends Fragment {
 
     // Esta función se encarga de rellenar los campos de clave privada automáticamente si ya está en sesión
     private void autoFillKeys() {
-        UserRepository userRepository = new UserRepository();
-        String myKey = "";
-        if (getContext() != null) {
-            myKey = userRepository.getUsuarioClavePrivada(getContext());
-        }
-        if (myKey == null || myKey.isEmpty()) {
-            if (getContext() != null) {
-                SharedPreferences prefs = getContext().getSharedPreferences("FairPayPrefs", Context.MODE_PRIVATE);
-                myKey = prefs.getString("CURRENT_USER_PRIVATE_KEY", "");
-            }
-        }
+        if (getContext() == null) return;
+            UserRepository userRepository = new UserRepository();
+            String myKey = userRepository.getUsuarioClavePrivada(getContext());
+
         if (myKey != null && !myKey.isEmpty()) {
             if (inputPrivateKey != null) inputPrivateKey.setText(myKey);
             if (inputPrivateKeyFund != null) inputPrivateKeyFund.setText(myKey);
