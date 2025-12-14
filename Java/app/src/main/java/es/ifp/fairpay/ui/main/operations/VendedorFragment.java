@@ -1,7 +1,6 @@
 package es.ifp.fairpay.ui.main.operations;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -24,29 +23,50 @@ import java.util.List;
 import java.util.Set;
 
 import es.ifp.fairpay.R;
-import es.ifp.fairpay.data.service.FairPayService;
+import es.ifp.fairpay.data.repository.EscrowRepository;
+import es.ifp.fairpay.data.repository.RepositoryCallback;
+import es.ifp.fairpay.data.repository.UserRepository;
 
+/**
+ * Fragmento que gestiona las operaciones del rol "Vendedor" en el sistema de depósito (Escrow).
+ * Permite al vendedor verificar si un depósito ha sido financiado por el comprador
+ * y ejecutar la liberación final de los fondos (segunda aprobación) una vez cumplidas las condiciones.
+ */
 public class VendedorFragment extends Fragment {
 
+    // Elementos de la Interfaz de Usuario
     private EditText inputSellerPrivateKey, inputSellerEscrowId;
     private Button btnSellerCheckStatus, btnSellerReceivePayment, btnSellerBack;
     private TextView tvLog;
+
+    // Dependencias y Contexto
     private Context mContext;
+    private UserRepository userRepository;
+    private EscrowRepository escrowRepository;
+
+    // Constante para almacenamiento local de operaciones finalizadas
     private static final String PREF_COMPLETED_IDS = "COMPLETED_IDS";
 
-    // Esta función se encarga de adjuntar el contexto del fragmento para asegurar el acceso a recursos
+    /**
+     * Método del ciclo de vida ejecutado al adjuntar el fragmento a la actividad.
+     * Inicializa los repositorios necesarios.
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mContext = context;
+        userRepository = new UserRepository();
+        escrowRepository = new EscrowRepository();
     }
 
-    // Esta función se encarga de inflar el diseño visual del fragmento y configurar la lógica inicial
+    /**
+     * Infla el diseño de la interfaz, vincula las vistas y configura el estado inicial.
+     * Si se reciben argumentos (ej. desde operaciones pendientes), pre-carga los datos.
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_vendedor, container, false);
-
         inputSellerPrivateKey = view.findViewById(R.id.input_seller_private_key);
         inputSellerEscrowId = view.findViewById(R.id.input_seller_escrow_id);
         btnSellerCheckStatus = view.findViewById(R.id.btn_seller_check_status);
@@ -57,6 +77,7 @@ public class VendedorFragment extends Fragment {
         setupListeners();
         autoFillKeys();
 
+        // Manejo de navegación desde "Operaciones Pendientes"
         if (getArguments() != null) {
             String pendingId = getArguments().getString("PENDING_ID");
             if (pendingId != null) {
@@ -64,130 +85,125 @@ public class VendedorFragment extends Fragment {
                 tvLog.setText("Depósito Aprobado ID: " + pendingId + ". Libera los fondos.");
             }
         }
-
         return view;
     }
 
-    // Esta función se encarga de configurar los eventos de clic para los botones de las distintas secciones
+    /**
+     * Configura los listeners de los botones para las acciones del vendedor.
+     */
     private void setupListeners() {
         btnSellerBack.setOnClickListener(v -> {
             hideKeyboard();
-            if (getParentFragment() instanceof OperacionesFragment) {
-                ((OperacionesFragment) getParentFragment()).resetUI();
-            }
+            if (getParentFragment() instanceof OperacionesFragment) ((OperacionesFragment) getParentFragment()).resetUI();
         });
-
         btnSellerCheckStatus.setOnClickListener(v -> {
             hideKeyboard();
             String idStr = inputSellerEscrowId.getText().toString().trim();
-            if (!idStr.isEmpty()) {
-                performCheck(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(idStr));
-            }
+            if (!idStr.isEmpty()) performCheck(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(idStr));
         });
-
         btnSellerReceivePayment.setOnClickListener(v -> {
             hideKeyboard();
             String idStr = inputSellerEscrowId.getText().toString().trim();
-            if (!idStr.isEmpty()) {
-                performReceive(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(idStr));
+            if (!idStr.isEmpty()) performReceive(inputSellerPrivateKey.getText().toString().trim(), new BigInteger(idStr));
+        });
+    }
+
+    /**
+     * Consulta el estado del depósito en la Blockchain para informar al vendedor.
+     * Verifica si los fondos están depositados y cuántas aprobaciones tiene el contrato.
+     *
+     * @param pk Clave privada del vendedor.
+     * @param id Identificador del depósito.
+     */
+    private void performCheck(String pk, BigInteger id) {
+        tvLog.setText("Consultando...");
+        btnSellerCheckStatus.setEnabled(false);
+
+        escrowRepository.getEscrowDetails(pk, id, new RepositoryCallback<List<Type>>() {
+            @Override
+            public void onSuccess(List<Type> details) {
+                btnSellerCheckStatus.setEnabled(true);
+                boolean isFunded = (Boolean) details.get(3).getValue();
+                BigInteger approvals = (BigInteger) details.get(4).getValue();
+                if (isFunded && approvals.equals(BigInteger.ONE)) tvLog.setText("Listo para recibir pago.");
+                else if (!isFunded) tvLog.setText("No pagado aún.");
+                else tvLog.setText("Pagado, esperando aprobación.");
+            }
+            @Override
+            public void onFailure(String error) {
+                tvLog.setText("Error: " + error);
+                btnSellerCheckStatus.setEnabled(true);
             }
         });
     }
 
-    // Esta función se encarga de comprobar el estado del depósito en la blockchain
-    private void performCheck(String pk, BigInteger id) {
-        tvLog.setText("Consultando...");
-        btnSellerCheckStatus.setEnabled(false);
-        new Thread(() -> {
-            try {
-                String tempPk = pk.isEmpty() ? "0x01" : pk;
-                FairPayService service = new FairPayService(tempPk);
-                List<Type> details = service.getEscrowDetails(id);
-                boolean isFunded = (Boolean) details.get(3).getValue();
-                BigInteger approvals = (BigInteger) details.get(4).getValue();
-                if (getActivity() != null) getActivity().runOnUiThread(() -> {
-                    btnSellerCheckStatus.setEnabled(true);
-                    if (isFunded && approvals.equals(BigInteger.ONE))
-                        tvLog.setText("Listo para recibir pago.");
-                    else if (!isFunded) tvLog.setText("No pagado aún.");
-                    else tvLog.setText("Pagado, esperando aprobación.");
-                });
-            } catch (Exception e) {
-                if (getActivity() != null) getActivity().runOnUiThread(() -> {
-                    tvLog.setText("Error: " + e.getMessage());
-                    btnSellerCheckStatus.setEnabled(true);
-                });
-            }
-        }).start();
-    }
-
-    // Esta función se encarga de iniciar el proceso de recepción de fondos si las condiciones se cumplen
+    /**
+     * Verifica si es posible reclamar el pago y, en caso afirmativo, inicia el proceso de aprobación final.
+     * Se requiere que el contrato esté financiado y tenga ya una aprobación (del comprador).
+     */
     private void performReceive(String pk, BigInteger id) {
         tvLog.setText("Reclamando...");
         btnSellerReceivePayment.setEnabled(false);
-        new Thread(() -> {
-            try {
-                FairPayService service = new FairPayService(pk);
-                List<Type> details = service.getEscrowDetails(id);
+
+        escrowRepository.getEscrowDetails(pk, id, new RepositoryCallback<List<Type>>() {
+            @Override
+            public void onSuccess(List<Type> details) {
                 boolean isFunded = (Boolean) details.get(3).getValue();
                 BigInteger approvals = (BigInteger) details.get(4).getValue();
-                if (getActivity() != null) getActivity().runOnUiThread(() -> {
-                    if (isFunded && approvals.equals(BigInteger.ONE)) {
-                        performApproveRelease(id, pk);
-                    } else {
-                        tvLog.setText("No puedes reclamar aún.");
-                        btnSellerReceivePayment.setEnabled(true);
-                    }
-                });
-            } catch (Exception e) {
-                if (getActivity() != null) getActivity().runOnUiThread(() -> {
-                    tvLog.setText("Error: " + e.getMessage());
+                if (isFunded && approvals.equals(BigInteger.ONE)) {
+                    performApproveRelease(id, pk);
+                } else {
+                    tvLog.setText("No puedes reclamar aún.");
                     btnSellerReceivePayment.setEnabled(true);
-                });
+                }
             }
-        }).start();
+            @Override
+            public void onFailure(String error) {
+                tvLog.setText("Error: " + error);
+                btnSellerReceivePayment.setEnabled(true);
+            }
+        });
     }
 
-    // Esta función se encarga de ejecutar la liberación final de los fondos en la blockchain
+    /**
+     * Ejecuta la transacción de aprobación final (release) en la Blockchain.
+     * Al completarse, marca la operación como finalizada localmente para que no aparezca como pendiente.
+     */
     private void performApproveRelease(BigInteger id, String pk) {
-        new Thread(() -> {
-            try {
-                FairPayService service = new FairPayService(pk);
-                String hash = service.approveRelease(id);
-                if (getActivity() != null) getActivity().runOnUiThread(() -> {
-                    tvLog.setText("Aprobación enviada. Hash: " + hash);
-                    SharedPreferences prefs = mContext.getSharedPreferences("FairPayState", Context.MODE_PRIVATE);
-                    Set<String> ids = prefs.getStringSet(PREF_COMPLETED_IDS, new HashSet<>());
-                    Set<String> newIds = new HashSet<>(ids);
-                    newIds.add(id.toString());
-                    prefs.edit().putStringSet(PREF_COMPLETED_IDS, newIds).apply();
+        escrowRepository.approveRelease(pk, id, new RepositoryCallback<String>() {
+            @Override
+            public void onSuccess(String hash) {
+                tvLog.setText("Aprobación enviada. Hash: " + hash);
+                // Guardar localmente el ID como completado para evitar que el escáner lo vuelva a mostrar
+                Set<String> ids = mContext.getSharedPreferences("FairPayState", Context.MODE_PRIVATE).getStringSet(PREF_COMPLETED_IDS, new HashSet<>());
+                Set<String> newIds = new HashSet<>(ids);
+                newIds.add(id.toString());
+                mContext.getSharedPreferences("FairPayState", Context.MODE_PRIVATE).edit().putStringSet(PREF_COMPLETED_IDS, newIds).apply();
 
-                    new CountDownTimer(19000, 1000) {
-                        public void onTick(long m) {
-                            btnSellerReceivePayment.setText("Procesando... " + m / 1000);
-                        }
-                        public void onFinish() {
-                            btnSellerReceivePayment.setText("Recibir pago");
-                            btnSellerReceivePayment.setEnabled(true);
-                            tvLog.setText("FINALIZADO. Depósito liberado.");
-                        }
-                    }.start();
-                });
-            } catch (Exception e) {
-                if (getActivity() != null) getActivity().runOnUiThread(() -> tvLog.setText("Error: " + e.getMessage()));
+                new CountDownTimer(19000, 1000) {
+                    public void onTick(long m) { btnSellerReceivePayment.setText("Procesando... " + m / 1000); }
+                    public void onFinish() { btnSellerReceivePayment.setText("Recibir pago"); btnSellerReceivePayment.setEnabled(true); tvLog.setText("FINALIZADO. Depósito liberado."); }
+                }.start();
             }
-        }).start();
+            @Override
+            public void onFailure(String error) {
+                tvLog.setText("Error: " + error);
+            }
+        });
     }
 
-    // Esta función se encarga de rellenar automáticamente la clave privada desde las preferencias
+    /**
+     * Rellena automáticamente el campo de clave privada si el usuario ya ha iniciado sesión previamente.
+     */
     private void autoFillKeys() {
-        SharedPreferences prefs = mContext.getSharedPreferences("FairPayPrefs", Context.MODE_PRIVATE);
-        String myKey = prefs.getString("CURRENT_USER_PRIVATE_KEY", "");
-        if (!myKey.isEmpty() && inputSellerPrivateKey != null)
+        String myKey = userRepository.getUsuarioClavePrivada(mContext);
+        if (myKey != null && !myKey.isEmpty() && inputSellerPrivateKey != null)
             inputSellerPrivateKey.setText(myKey);
     }
 
-    // Esta función se encarga de ocultar el teclado virtual si está visible
+    /**
+     * Oculta el teclado virtual para mejorar la visibilidad de los logs y resultados.
+     */
     private void hideKeyboard() {
         if (getActivity() != null) {
             View v = getActivity().getCurrentFocus();
