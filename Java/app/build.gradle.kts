@@ -52,6 +52,7 @@ dependencies {
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
+    implementation(libs.biometric)
 
     // --- TESTING ---
     testImplementation("junit:junit:4.13.2")
