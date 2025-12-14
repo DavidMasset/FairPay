@@ -61,19 +61,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1c1d17b-7a2e-4235-a310-22c70e977e49" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/CompradorFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/DisputasFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/VendedorFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_comprador.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_disputas.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_vendedor.xml" afterDir="false" />
+    <list default="true" id="b1c1d17b-7a2e-4235-a310-22c70e977e49" name="Changes" comment="Cuatro clases para operaciones">
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/data/repository/DisputeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/data/repository/EscrowRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/data/repository/OperationsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/data/repository/RepositoryCallback.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetSelector.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/data/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/data/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/CompradorFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/CompradorFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/DisputasFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/DisputasFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/OperacionesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/OperacionesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/res/layout/fragment_operaciones.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/VendedorFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Java/app/src/main/java/es/ifp/fairpay/ui/main/operations/VendedorFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +83,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=O1E1XT232304883), DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=O1E1XT232305219)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=/Users/josemorenomunoz/.android/avd/Medium_Phone.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/Java">
       <ProjectState />
@@ -165,30 +165,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.FairPay.app.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SHELLCHECK.PATH": "/Users/juliofernandezruiz/Library/Application Support/Google/AndroidStudio2025.1.4/plugins/Shell Script/shellcheck",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "cuatroClasesFP__Jose",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.12376237",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.FairPay.app.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SHELLCHECK.PATH&quot;: &quot;/Users/juliofernandezruiz/Library/Application Support/Google/AndroidStudio2025.1.4/plugins/Shell Script/shellcheck&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cuatroClasesFP__Jose&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.12376237&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="FairPay.app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="FairPay.app" />
@@ -271,19 +271,32 @@
       <option name="presentableId" value="Default" />
       <updated>1761043384986</updated>
     </task>
+    <task id="LOCAL-00001" summary="Cuatro clases para operaciones">
+      <option name="closed" value="true" />
+      <created>1765621383494</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1765621383499</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Cuatro clases para operaciones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cuatro clases para operaciones" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="es.ifp.fairpay">
           <value>
-            <CheckInfo lastCheckTimestamp="1765568811750" />
+            <CheckInfo lastCheckTimestamp="1765696171127" />
           </value>
         </entry>
         <entry key="es.ifp.fairpay.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1765568811737" />
+            <CheckInfo lastCheckTimestamp="1765696171124" />
           </value>
         </entry>
       </map>
