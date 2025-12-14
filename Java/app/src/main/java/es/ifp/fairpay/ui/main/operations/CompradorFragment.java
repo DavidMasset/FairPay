@@ -30,6 +30,7 @@ import es.ifp.fairpay.data.repository.EscrowRepository;
 import es.ifp.fairpay.data.repository.OperationsRepository;
 import es.ifp.fairpay.data.repository.RepositoryCallback;
 import es.ifp.fairpay.data.repository.UserRepository;
+import es.ifp.fairpay.data.security.FingerprintCheck;
 
 /**
  * Fragmento que gestiona las operaciones del rol "Comprador" en el sistema de depósito (Escrow).
@@ -183,10 +184,20 @@ public class CompradorFragment extends Fragment {
             hideKeyboard();
             String pk = inputPrivateKey.getText().toString().trim();
             String seller = inputSeller.getText().toString().trim();
-            if (!pk.isEmpty() && !seller.isEmpty()) {
-                userRepository.setUsuarioClavePrivada(mContext, pk);
-                performCreateEscrow(pk, seller);
+
+            if (pk.isEmpty() || seller.isEmpty()) {
+                Toast.makeText(mContext, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            FingerprintCheck fingerprintCheck = new FingerprintCheck();
+            fingerprintCheck.showFingerprintDialog(this, () -> {
+                Toast.makeText(mContext, "Huella verificada. Procesando envío...", Toast.LENGTH_SHORT).show();
+
+                userRepository.setUsuarioClavePrivada(mContext, pk);
+
+                performCreateEscrow(pk, seller);
+            });
         });
         btnSearchId.setOnClickListener(v -> {
             hideKeyboard();
