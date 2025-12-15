@@ -11,12 +11,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import es.ifp.fairpay.R;
-import es.ifp.fairpay.data.database.DatabaseConnection;
 import es.ifp.fairpay.ui.authenticator.LoginActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
-//TODO: Separar la parte de Backend y de Frontend
 public class MainActivity extends AppCompatActivity {
     protected Intent pasarPantalla;
     protected TimerTask tt;
@@ -57,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
         t.schedule(tt, 5000);
     }
 
-    // Método para actualizar la clave privada del usuario en esta actividad
-    public void setUsuarioClavePrivada(String clave) {
-        this.usuarioClavePrivada = clave;
-    }
 
     // Método para obtener la clave privada almacenada en esta actividad
     public String getUsuarioClavePrivada() {
